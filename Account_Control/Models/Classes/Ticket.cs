@@ -23,49 +23,61 @@
  */
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Models {
-    public sealed class Customer : Person {
+    public sealed class Ticket {
 
         #region Attributes
 
-        private string phone;
-        private string cuil;
+        private short ticketID;
+        private DateTime ticketDate;
+        private float ticketAmount;
 
         #endregion
 
         #region Builders
 
-        public Customer(short id, string name, string surname)
-            : this(id, name, surname, "Sin Teléfono", "Sin Cuil") { }
+        public Ticket(short id)
+            : this(id, DateTime.Now) { }
 
-        public Customer(short id, string name, string surname, string phone)
-            : this(id, name, surname, phone, "Sin Cuil") { }
+        public Ticket(short id, DateTime date)
+            : this(id, date, 0) { }
 
-        public Customer(short id, string name, string surname, string phone, string cuil)
-            : base(id, name, surname) {
-            this.Phone = phone;
-            this.Cuil = cuil;
+        public Ticket(short id, DateTime date, float amount) {
+            this.TicketID = id;
+            this.TicketDate = date;
+            this.TicketAmount = amount;
         }
 
         #endregion
 
         #region Properties
 
-        public string Phone {
-            get => this.phone;
+        public short TicketID {
+            get => this.ticketID;
             set {
-                if (!String.IsNullOrWhiteSpace(value)) {
-                    this.phone = value;
+                if (value > 0) {
+                    this.ticketID = value;
                 }
             }
         }
 
-        public string Cuil {
-            get => this.cuil;
+        public DateTime TicketDate {
+            get => this.ticketDate;
             set {
-                if (!String.IsNullOrWhiteSpace(value)) {
-                    this.cuil = value;
+                this.ticketDate = value;
+            }
+        }
+
+        public float TicketAmount {
+            get => this.ticketAmount;
+            set {
+                if (value >= 0) {
+                    this.ticketAmount = value;
                 }
             }
         }
@@ -74,16 +86,16 @@ namespace Models {
 
         #region Operators
 
-        public static bool operator ==(Customer c1, Customer c2) {
-            if (!(c1 is null) && !(c2 is null)) {
-                return c1.ID == c2.ID;
+        public static bool operator ==(Ticket t1, Ticket t2) {
+            if (!(t1 is null) && !(t2 is null)) {
+                return t1.TicketID == t2.TicketID;
             }
 
             return false;
         }
 
-        public static bool operator !=(Customer c1, Customer c2) {
-            return !(c1 == c2);
+        public static bool operator !=(Ticket t1, Ticket t2) {
+            return !(t1 == t2);
         }
 
         #endregion

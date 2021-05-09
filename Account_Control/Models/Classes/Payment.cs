@@ -29,7 +29,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Models {
-    public sealed class Payments {
+    public sealed class Payment {
 
         #region Attributes
 
@@ -41,13 +41,13 @@ namespace Models {
 
         #region Builders
 
-        public Payments(short id)
+        public Payment(short id)
             : this(id, DateTime.Now) { }
 
-        public Payments(short id, DateTime date)
+        public Payment(short id, DateTime date)
             : this(id, date, 0) { }
 
-        public Payments(short id, DateTime date, float amount) {
+        public Payment(short id, DateTime date, float amount) {
             this.PaymentID = id;
             this.PaymentDate = date;
             this.PaymentAmount = amount;
@@ -86,7 +86,7 @@ namespace Models {
 
         #region Operators
 
-        public static bool operator ==(Payments p1, Payments p2) {
+        public static bool operator ==(Payment p1, Payment p2) {
             if (!(p1 is null) && !(p2 is null)) {
                 return p1.PaymentID == p2.PaymentID;
             }
@@ -94,7 +94,7 @@ namespace Models {
             return false;
         }
 
-        public static bool operator !=(Payments p1, Payments p2) {
+        public static bool operator !=(Payment p1, Payment p2) {
             return !(p1 == p2);
         }
 

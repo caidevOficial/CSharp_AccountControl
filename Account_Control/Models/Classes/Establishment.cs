@@ -24,18 +24,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Models {
     public sealed class Establishment {
 
         #region Attributes
-
-        public enum BussinessType {
-            Ferreteria,
-            Corralon,
-            CasaSanitarios,
-            Particular
-        }
 
         private short id;
         private string name;
@@ -44,25 +38,27 @@ namespace Models {
         private string city;
         private Customer owner;
         private BussinessType tipo;
-        //private List<Remito> remitos;
-        private List<Payments> payments;
+        private List<Ticket> remitos;
+        private List<Payment> payments;
 
         #endregion
 
         #region Builders
 
         private Establishment() {
-            payments = new List<Payments>();
+            payments = new List<Payment>();
+            remitos = new List<Ticket>();
         }
 
-        public Establishment(short id, Customer owner, string name, string address, short numberAddress, string city, BussinessType tipo) {
+        public Establishment(short id, Customer owner, string name, string address, short numberAddress, string city, BussinessType tipo)
+            : this() {
             this.ID = id;
             this.Owner = owner;
             this.Name = name;
             this.Address = address;
             this.AddressNumber = addressNumber;
             this.City = city;
-            this.Bussiness_Type = tipo;
+            this.BussinessType = tipo;
         }
 
         #endregion
@@ -114,6 +110,15 @@ namespace Models {
             }
         }
 
+        public BussinessType BussinessType {
+            get => this.tipo;
+            set {
+                if (value.GetType() == typeof(BussinessType)) {
+                    this.tipo = value;
+                }
+            }
+        }
+
         public Customer Owner {
             get => this.owner;
             set {
@@ -123,23 +128,15 @@ namespace Models {
             }
         }
 
-        public BussinessType Bussiness_Type {
-            get => this.tipo;
-            set {
-                if (value.GetType() == typeof(BussinessType)) {
-                    this.tipo = value;
-                }
-            }
-        }
-
-
         #endregion
 
         #region Operators
 
-        public static bool operator ==(Establishment e, Payments p) {
+        #region PaymentsRelated
+
+        public static bool operator ==(Establishment e, Payment p) {
             if (!(e is null) && !(p is null)) {
-                foreach (Payments item in e.payments) {
+                foreach (Payment item in e.payments) {
                     if (item == p) {
                         return true;
                     }
@@ -149,11 +146,11 @@ namespace Models {
             return false;
         }
 
-        public static bool operator !=(Establishment e, Payments p) {
+        public static bool operator !=(Establishment e, Payment p) {
             return !(e == p);
         }
 
-        public static Establishment operator +(Establishment e, Payments p) {
+        public static Establishment operator +(Establishment e, Payment p) {
             if (!(e is null) && !(p is null)) {
                 if (e != p) {
                     e.payments.Add(p);
@@ -163,7 +160,7 @@ namespace Models {
             return e;
         }
 
-        public static Establishment operator -(Establishment e, Payments p) {
+        public static Establishment operator -(Establishment e, Payment p) {
             if (!(e is null) && !(p is null)) {
                 if (e == p) {
                     e.payments.Remove(p);
@@ -175,7 +172,84 @@ namespace Models {
 
         #endregion
 
+        #region TicketsRelated
+
+        public static bool operator ==(Establishment e, Ticket p) {
+            if (!(e is null) && !(p is null)) {
+                foreach (Ticket item in e.remitos) {
+                    if (item == p) {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public static bool operator !=(Establishment e, Ticket p) {
+            return !(e == p);
+        }
+
+        public static Establishment operator +(Establishment e, Ticket p) {
+            if (!(e is null) && !(p is null)) {
+                if (e != p) {
+                    e.remitos.Add(p);
+                }
+            }
+
+            return e;
+        }
+
+        public static Establishment operator -(Establishment e, Ticket p) {
+            if (!(e is null) && !(p is null)) {
+                if (e == p) {
+                    e.remitos.Remove(p);
+                }
+            }
+
+            return e;
+        }
+
+        #endregion
+
+        #endregion
+
         #region Methods
+
+        public double CalculateTotalPurchases() {
+            double total = 0;
+            foreach (Ticket item in this.remitos) {
+                total += item.TicketAmount;
+            }
+
+            return Math.Round(total, 2);
+        }
+
+        public double CalculateTotalPayments() {
+            double total = 0;
+            foreach (Payment item in this.payments) {
+                total += item.PaymentAmount;
+            }
+
+            return Math.Round(total, 2);
+        }
+
+        public double CalculateAccountState() {
+            double state = CalculateTotalPurchases() - CalculateTotalPayments();
+
+            return Math.Round(state, 2);
+        }
+
+        public string EstablishmentAccountInfo() {
+            StringBuilder data = new StringBuilder();
+            data.AppendLine("Bussiness Name\tPurchases\tPayments\tAccount State");
+            data.Append($"{this.Name}\t");
+            data.Append($"${CalculateTotalPurchases()}\t");
+            data.Append($"${CalculateTotalPayments()}\t");
+            data.AppendLine($"${CalculateAccountState()}\t");
+
+            return data.ToString();
+        }
 
         #endregion
     }
