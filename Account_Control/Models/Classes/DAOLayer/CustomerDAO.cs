@@ -23,62 +23,46 @@
  */
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Models {
-    public abstract class Person {
+namespace DAOLayer {
+    public static class CustomerDAO {
 
         #region Attributes
 
-        private short id;
-        private string name;
-        private string surname;
+
 
         #endregion
 
-        #region Builders
+        #region Builder
 
-        public Person(short id, string name, string surname) {
-            this.ID = id;
-            this.Name = name;
-            this.Surname = surname;
+        static CustomerDAO() {
+
         }
 
         #endregion
 
-        #region Properties
+        #region Methods
 
-        public short ID {
-            get => this.id;
-            set {
-                if (value > 0) {
-                    this.id = value;
-                }
-            }
+        public static void CreatePayment() {
+
+        }
+        public static void ReadAllPayments() {
+
         }
 
-        public string Name {
-            get => this.name;
-            set {
-                if (!String.IsNullOrWhiteSpace(value)) {
-                    this.name = value;
-                } else {
-                    this.name = "Sin Nombre";
-                }
-            }
+        public static void UpdatePayment() {
+
         }
 
-        public string Surname {
-            get => this.surname;
-            set {
-                if (!String.IsNullOrWhiteSpace(value)) {
-                    this.surname = value;
-                } else {
-                    this.name = "Sin Apellido";
-                }
-            }
+        public static void DeletePayment() {
+
         }
+
 
         #endregion
-
     }
 }

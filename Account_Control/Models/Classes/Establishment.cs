@@ -38,7 +38,7 @@ namespace Models {
         private string city;
         private Customer owner;
         private BussinessType tipo;
-        private List<Ticket> remitos;
+        private List<Ticket> tickets;
         private List<Payment> payments;
 
         #endregion
@@ -47,7 +47,7 @@ namespace Models {
 
         private Establishment() {
             payments = new List<Payment>();
-            remitos = new List<Ticket>();
+            tickets = new List<Ticket>();
         }
 
         public Establishment(short id, Customer owner, string name, string address, short numberAddress, string city, BussinessType tipo)
@@ -176,7 +176,7 @@ namespace Models {
 
         public static bool operator ==(Establishment e, Ticket p) {
             if (!(e is null) && !(p is null)) {
-                foreach (Ticket item in e.remitos) {
+                foreach (Ticket item in e.tickets) {
                     if (item == p) {
                         return true;
                     }
@@ -193,7 +193,7 @@ namespace Models {
         public static Establishment operator +(Establishment e, Ticket p) {
             if (!(e is null) && !(p is null)) {
                 if (e != p) {
-                    e.remitos.Add(p);
+                    e.tickets.Add(p);
                 }
             }
 
@@ -203,7 +203,7 @@ namespace Models {
         public static Establishment operator -(Establishment e, Ticket p) {
             if (!(e is null) && !(p is null)) {
                 if (e == p) {
-                    e.remitos.Remove(p);
+                    e.tickets.Remove(p);
                 }
             }
 
@@ -218,8 +218,8 @@ namespace Models {
 
         public double CalculateTotalPurchases() {
             double total = 0;
-            foreach (Ticket item in this.remitos) {
-                total += item.TicketAmount;
+            foreach (Ticket item in this.tickets) {
+                total += item.WorkItemAmount;
             }
 
             return Math.Round(total, 2);
@@ -228,7 +228,7 @@ namespace Models {
         public double CalculateTotalPayments() {
             double total = 0;
             foreach (Payment item in this.payments) {
-                total += item.PaymentAmount;
+                total += item.WorkItemAmount;
             }
 
             return Math.Round(total, 2);

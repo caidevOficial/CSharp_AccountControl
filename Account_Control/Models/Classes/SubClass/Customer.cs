@@ -31,6 +31,7 @@ namespace Models {
 
         private string phone;
         private string cuil;
+        private int idVendor;
 
         #endregion
 
@@ -43,9 +44,13 @@ namespace Models {
             : this(id, name, surname, phone, "Sin Cuil") { }
 
         public Customer(short id, string name, string surname, string phone, string cuil)
+            : this(id, name, surname, phone, cuil, 1) {}
+
+        public Customer(short id, string name, string surname, string phone, string cuil, int idVendor)
             : base(id, name, surname) {
             this.Phone = phone;
             this.Cuil = cuil;
+            this.idVendor = idVendor;
         }
 
         #endregion
@@ -66,6 +71,15 @@ namespace Models {
             set {
                 if (!String.IsNullOrWhiteSpace(value)) {
                     this.cuil = value;
+                }
+            }
+        }
+
+        public int IdVendor {
+            get => this.idVendor;
+            set {
+                if (value > 0) {
+                    this.idVendor = value;
                 }
             }
         }

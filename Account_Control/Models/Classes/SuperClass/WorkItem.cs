@@ -23,62 +23,78 @@
  */
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Models {
-    public abstract class Person {
+    public abstract class WorkItem {
 
         #region Attributes
 
-        private short id;
-        private string name;
-        private string surname;
+        private short workItemID;
+        private DateTime workItemDate;
+        private float workItemAmount;
+        private short workItemIdCustomer;
 
         #endregion
 
         #region Builders
 
-        public Person(short id, string name, string surname) {
-            this.ID = id;
-            this.Name = name;
-            this.Surname = surname;
+        public WorkItem(DateTime date, short id, float amount, short idCustomer) {
+            this.WorkItemID = id;
+            this.WorkItemDate = date;
+            this.WorkItemAmount = amount;
+            this.WorkItemIDCustomer = idCustomer;
         }
 
         #endregion
 
         #region Properties
 
-        public short ID {
-            get => this.id;
+        public short WorkItemID {
+            get => this.workItemID;
             set {
                 if (value > 0) {
-                    this.id = value;
+                    this.workItemID = value;
                 }
             }
         }
 
-        public string Name {
-            get => this.name;
+        public DateTime WorkItemDate {
+            get => this.workItemDate;
             set {
-                if (!String.IsNullOrWhiteSpace(value)) {
-                    this.name = value;
-                } else {
-                    this.name = "Sin Nombre";
+                this.workItemDate = value;
+            }
+        }
+
+        public float WorkItemAmount {
+            get => this.workItemAmount;
+            set {
+                if (value >= 0) {
+                    this.workItemAmount = value;
                 }
             }
         }
 
-        public string Surname {
-            get => this.surname;
+        public short WorkItemIDCustomer {
+            get => this.workItemIdCustomer;
             set {
-                if (!String.IsNullOrWhiteSpace(value)) {
-                    this.surname = value;
-                } else {
-                    this.name = "Sin Apellido";
+                if (value > 0) {
+                    this.workItemIdCustomer = value;
                 }
             }
         }
 
         #endregion
 
+        #region Operators
+
+        #endregion
+
+        #region Methods
+
+        #endregion
     }
 }

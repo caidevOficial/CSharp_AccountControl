@@ -23,62 +23,34 @@
  */
 
 using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Models {
-    public abstract class Person {
+namespace DAOLayer {
+    public static class ConnectionDAO {
 
         #region Attributes
 
-        private short id;
-        private string name;
-        private string surname;
+        private static string connString;
+        private static SqlConnection myConnection;
+        private static SqlCommand myCommand;
 
         #endregion
 
         #region Builders
 
-        public Person(short id, string name, string surname) {
-            this.ID = id;
-            this.Name = name;
-            this.Surname = surname;
+        static ConnectionDAO() {
+            connString = " Server = localhost ; Database = AccountControl; Trusted_Connection = true ; ";
+            myConnection = new SqlConnection(connString);
+            myCommand = new SqlCommand();
+            myCommand.Connection = myConnection;
+            myCommand.CommandType = CommandType.Text;
         }
 
         #endregion
-
-        #region Properties
-
-        public short ID {
-            get => this.id;
-            set {
-                if (value > 0) {
-                    this.id = value;
-                }
-            }
-        }
-
-        public string Name {
-            get => this.name;
-            set {
-                if (!String.IsNullOrWhiteSpace(value)) {
-                    this.name = value;
-                } else {
-                    this.name = "Sin Nombre";
-                }
-            }
-        }
-
-        public string Surname {
-            get => this.surname;
-            set {
-                if (!String.IsNullOrWhiteSpace(value)) {
-                    this.surname = value;
-                } else {
-                    this.name = "Sin Apellido";
-                }
-            }
-        }
-
-        #endregion
-
     }
 }

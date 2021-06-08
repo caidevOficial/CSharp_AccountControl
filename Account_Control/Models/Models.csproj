@@ -41,16 +41,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\BussinessType.cs" />
+    <Compile Include="Classes\DAOLayer\ConnectionDAO.cs" />
+    <Compile Include="Classes\DAOLayer\CustomerDAO.cs" />
+    <Compile Include="Classes\DAOLayer\PaymentDAO.cs" />
+    <Compile Include="Classes\DAOLayer\TicketDAO.cs" />
+    <Compile Include="Classes\SubClass\Vendor.cs" />
+    <Compile Include="Enums\BussinessType.cs" />
     <Compile Include="Classes\Establishment.cs" />
-    <Compile Include="Classes\Payment.cs" />
+    <Compile Include="Classes\SubClass\Payment.cs" />
     <Compile Include="Classes\SubClass\Customer.cs" />
     <Compile Include="Classes\SuperClass\Person.cs" />
-    <Compile Include="Classes\Ticket.cs" />
+    <Compile Include="Classes\SuperClass\WorkItem.cs" />
+    <Compile Include="Classes\SubClass\Ticket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

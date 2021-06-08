@@ -23,62 +23,56 @@
  */
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Models {
-    public abstract class Person {
+    public sealed class Ticket: WorkItem {
 
         #region Attributes
-
-        private short id;
-        private string name;
-        private string surname;
 
         #endregion
 
         #region Builders
 
-        public Person(short id, string name, string surname) {
-            this.ID = id;
-            this.Name = name;
-            this.Surname = surname;
-        }
+        public Ticket(short id)
+            : this(DateTime.Now, id) { }
+
+        public Ticket(DateTime date, short id)
+            : this(date, id, 0) { }
+
+        public Ticket(DateTime date, short id, float amount)
+            :this(date, id, amount, 1){}
+
+        public Ticket(DateTime date, short id, float amount, short idCustomer)
+            : base(date, id, amount, idCustomer) { }
 
         #endregion
 
         #region Properties
 
-        public short ID {
-            get => this.id;
-            set {
-                if (value > 0) {
-                    this.id = value;
-                }
+        #endregion
+
+        #region Operators
+
+        public static bool operator ==(Ticket t1, Ticket t2) {
+            if (!(t1 is null) && !(t2 is null)) {
+                return t1.WorkItemID == t2.WorkItemID;
             }
+
+            return false;
         }
 
-        public string Name {
-            get => this.name;
-            set {
-                if (!String.IsNullOrWhiteSpace(value)) {
-                    this.name = value;
-                } else {
-                    this.name = "Sin Nombre";
-                }
-            }
-        }
-
-        public string Surname {
-            get => this.surname;
-            set {
-                if (!String.IsNullOrWhiteSpace(value)) {
-                    this.surname = value;
-                } else {
-                    this.name = "Sin Apellido";
-                }
-            }
+        public static bool operator !=(Ticket t1, Ticket t2) {
+            return !(t1 == t2);
         }
 
         #endregion
 
+        #region Methods
+
+        #endregion
     }
 }

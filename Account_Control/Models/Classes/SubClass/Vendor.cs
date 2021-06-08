@@ -28,79 +28,48 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models {
-    public sealed class Ticket {
+namespace Models.Classes.SubClass {
+    public class Vendor : Person {
 
         #region Attributes
 
-        private short ticketID;
-        private DateTime ticketDate;
-        private float ticketAmount;
+        private string username;
+        private string password;
 
         #endregion
 
         #region Builders
 
-        public Ticket(short id)
-            : this(id, DateTime.Now) { }
+        public Vendor(short id, string name, string surname)
+            :this(id, name, surname, "admin", "admin"){}
 
-        public Ticket(short id, DateTime date)
-            : this(id, date, 0) { }
-
-        public Ticket(short id, DateTime date, float amount) {
-            this.TicketID = id;
-            this.TicketDate = date;
-            this.TicketAmount = amount;
+        public Vendor(short id, string name, string surname, string username, string password)
+            : base(id, name, surname) {
+            this.Username = username;
+            this.Password = password;
         }
 
         #endregion
-
+        
         #region Properties
 
-        public short TicketID {
-            get => this.ticketID;
+        public string Username {
+            get => this.username;
             set {
-                if (value > 0) {
-                    this.ticketID = value;
+                if (!String.IsNullOrWhiteSpace(value)) {
+                    this.username = value;
                 }
             }
         }
 
-        public DateTime TicketDate {
-            get => this.ticketDate;
+        public string Password {
+            get => this.password;
             set {
-                this.ticketDate = value;
-            }
-        }
-
-        public float TicketAmount {
-            get => this.ticketAmount;
-            set {
-                if (value >= 0) {
-                    this.ticketAmount = value;
+                if (!String.IsNullOrWhiteSpace(value)) {
+                    this.password = value;
                 }
             }
         }
-
-        #endregion
-
-        #region Operators
-
-        public static bool operator ==(Ticket t1, Ticket t2) {
-            if (!(t1 is null) && !(t2 is null)) {
-                return t1.TicketID == t2.TicketID;
-            }
-
-            return false;
-        }
-
-        public static bool operator !=(Ticket t1, Ticket t2) {
-            return !(t1 == t2);
-        }
-
-        #endregion
-
-        #region Methods
 
         #endregion
     }

@@ -29,58 +29,29 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Models {
-    public sealed class Payment {
+    public sealed class Payment: WorkItem {
 
         #region Attributes
-
-        private short paymentID;
-        private DateTime paymentDate;
-        private float paymentAmount;
 
         #endregion
 
         #region Builders
 
         public Payment(short id)
-            : this(id, DateTime.Now) { }
+            : this(DateTime.Now, id) { }
 
-        public Payment(short id, DateTime date)
-            : this(id, date, 0) { }
+        public Payment(DateTime date, short id)
+            : this(date, id, 0) { }
 
-        public Payment(short id, DateTime date, float amount) {
-            this.PaymentID = id;
-            this.PaymentDate = date;
-            this.PaymentAmount = amount;
-        }
+        public Payment(DateTime date, short id, float amount)
+            :this(date, id, amount, 1){}
+
+        public Payment(DateTime date, short id, float amount, short idCustomer)
+            : base(date, id, amount, idCustomer) { }
 
         #endregion
 
         #region Properties
-
-        public short PaymentID {
-            get => this.paymentID;
-            set {
-                if (value > 0) {
-                    this.paymentID = value;
-                }
-            }
-        }
-
-        public DateTime PaymentDate {
-            get => this.paymentDate;
-            set {
-                this.paymentDate = value;
-            }
-        }
-
-        public float PaymentAmount {
-            get => this.paymentAmount;
-            set {
-                if (value >= 0) {
-                    this.paymentAmount = value;
-                }
-            }
-        }
 
         #endregion
 
@@ -88,7 +59,7 @@ namespace Models {
 
         public static bool operator ==(Payment p1, Payment p2) {
             if (!(p1 is null) && !(p2 is null)) {
-                return p1.PaymentID == p2.PaymentID;
+                return p1.WorkItemID == p2.WorkItemID;
             }
 
             return false;
