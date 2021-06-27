@@ -24,45 +24,23 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
-namespace DAOLayer {
-    public static class CustomerDAO {
-
-        #region Attributes
-
-
-
-        #endregion
-
-        #region Builder
-
-        static CustomerDAO() {
-
+namespace Account_Control {
+    public partial class frmCustomer : Form {
+        public frmCustomer() {
+            InitializeComponent();
         }
 
-        #endregion
-
-        #region Methods
-
-        public static void CreatePayment() {
-
+        private void btnNewCustomer_Click(object sender, EventArgs e) {
+            frmAddCustomer addCustomer = new frmAddCustomer();
+            addCustomer.ShowDialog();
         }
-        public static void ReadAllPayments() {
-
-        }
-
-        public static void UpdatePayment() {
-
-        }
-
-        public static void DeletePayment() {
-
-        }
-
-
-        #endregion
     }
 }

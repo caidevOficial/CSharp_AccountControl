@@ -37,6 +37,10 @@ namespace Models {
 
         #region Builders
 
+        public Person() {
+
+        }
+
         public Person(short id, string name, string surname) {
             this.ID = id;
             this.Name = name;

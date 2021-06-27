@@ -23,12 +23,8 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Models.Classes.SubClass {
+namespace Models {
     public class Vendor : Person {
 
         #region Attributes
@@ -40,9 +36,23 @@ namespace Models.Classes.SubClass {
 
         #region Builders
 
+        /// <summary>
+        /// Builder with name, surname and id. It sets password and username as 'admin'
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="surname"></param>
         public Vendor(short id, string name, string surname)
-            :this(id, name, surname, "admin", "admin"){}
+            : this(id, name, surname, "admin", "admin") { }
 
+        /// <summary>
+        /// Full builder of a vendor.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="surname"></param>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
         public Vendor(short id, string name, string surname, string username, string password)
             : base(id, name, surname) {
             this.Username = username;
@@ -50,7 +60,7 @@ namespace Models.Classes.SubClass {
         }
 
         #endregion
-        
+
         #region Properties
 
         public string Username {
@@ -69,6 +79,18 @@ namespace Models.Classes.SubClass {
                     this.password = value;
                 }
             }
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Shows id, name and surname of the vendor.
+        /// </summary>
+        /// <returns>id, name and surname of the vendor as a string.</returns>
+        public override string ToString() {
+            return $"{this.ID} {this.Name} {this.Surname}.";
         }
 
         #endregion

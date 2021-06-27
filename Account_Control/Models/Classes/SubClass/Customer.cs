@@ -31,26 +31,55 @@ namespace Models {
 
         private string phone;
         private string cuil;
+        private string bussinessName;
+        private string bussinessAddress;
+        private string city;
+        private BussinessType bussinessType;
         private int idVendor;
 
         #endregion
 
         #region Builders
 
+        public Customer() {
+
+        }
+
+        public Customer(string name, string surname)
+            : this(0, name, surname) { }
+
         public Customer(short id, string name, string surname)
-            : this(id, name, surname, "Sin Teléfono", "Sin Cuil") { }
+            : base(id, name, surname) { }
 
         public Customer(short id, string name, string surname, string phone)
-            : this(id, name, surname, phone, "Sin Cuil") { }
+            : this(id, name, surname) {
+            this.Phone = phone;
+        }
 
         public Customer(short id, string name, string surname, string phone, string cuil)
-            : this(id, name, surname, phone, cuil, 1) {}
+            : this(id, name, surname, phone) {
+            this.Cuil = cuil;
+        }
 
         public Customer(short id, string name, string surname, string phone, string cuil, int idVendor)
-            : base(id, name, surname) {
-            this.Phone = phone;
-            this.Cuil = cuil;
+            : this(id, name, surname, phone, cuil) {
             this.idVendor = idVendor;
+        }
+
+        public Customer(short id, string name, string surname, string phone, string cuil, string bussinessName, BussinessType bussinessType, int idVendor)
+            : this(id, name, surname, phone, cuil, idVendor) {
+            this.BussinessName = bussinessName;
+            this.BussinessType = bussinessType;
+        }
+
+        public Customer(short id, string name, string surname, string phone, string cuil, string bussinessName, BussinessType bussinessType, string bussinessAddress, int idVendor)
+            : this(id, name, surname, phone, cuil, bussinessName, bussinessType, idVendor) {
+            this.BussinessAddress = bussinessAddress;
+        }
+
+        public Customer(short id, string name, string surname, string phone, string cuil, string bussinessName, BussinessType bussinessType, string bussinessAddress, string city, int idVendor)
+            : this(id, name, surname, phone, cuil, bussinessName, bussinessType, bussinessAddress, idVendor) {
+            this.City = city;
         }
 
         #endregion
@@ -80,6 +109,42 @@ namespace Models {
             set {
                 if (value > 0) {
                     this.idVendor = value;
+                }
+            }
+        }
+
+        public string BussinessName {
+            get => this.bussinessName;
+            set {
+                if (!String.IsNullOrWhiteSpace(value)) {
+                    this.bussinessName = value;
+                }
+            }
+        }
+
+        public BussinessType BussinessType {
+            get => this.bussinessType;
+            set {
+                if (value.GetType() == typeof(BussinessType)) {
+                    this.bussinessType = value;
+                }
+            }
+        }
+
+        public string BussinessAddress {
+            get => this.bussinessAddress;
+            set {
+                if (!String.IsNullOrWhiteSpace(value)) {
+                    this.bussinessAddress = value;
+                }
+            }
+        }
+
+        public string City {
+            get => this.city;
+            set {
+                if (!String.IsNullOrWhiteSpace(value)) {
+                    this.city = value;
                 }
             }
         }

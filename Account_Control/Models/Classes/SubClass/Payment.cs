@@ -23,13 +23,9 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Models {
-    public sealed class Payment: WorkItem {
+    public sealed class Payment : WorkItem {
 
         #region Attributes
 
@@ -44,7 +40,7 @@ namespace Models {
             : this(date, id, 0) { }
 
         public Payment(DateTime date, short id, float amount)
-            :this(date, id, amount, 1){}
+            : this(date, id, amount, 1) { }
 
         public Payment(DateTime date, short id, float amount, short idCustomer)
             : base(date, id, amount, idCustomer) { }
