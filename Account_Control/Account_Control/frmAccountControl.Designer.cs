@@ -54,8 +54,9 @@ namespace Account_Control {
             this.btnPayments.BackColor = System.Drawing.Color.Black;
             this.btnPayments.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnPayments.Font = new System.Drawing.Font("Javanese Text", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPayments.ForeColor = System.Drawing.Color.RoyalBlue;
             this.btnPayments.IconChar = FontAwesome.Sharp.IconChar.MoneyBillAlt;
-            this.btnPayments.IconColor = System.Drawing.Color.DodgerBlue;
+            this.btnPayments.IconColor = System.Drawing.Color.RoyalBlue;
             this.btnPayments.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnPayments.Location = new System.Drawing.Point(0, 262);
             this.btnPayments.Name = "btnPayments";
@@ -64,14 +65,16 @@ namespace Account_Control {
             this.btnPayments.Text = "Pagos";
             this.btnPayments.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnPayments.UseVisualStyleBackColor = false;
+            this.btnPayments.Click += new System.EventHandler(this.btnPayments_Click);
             // 
             // btnTickets
             // 
             this.btnTickets.BackColor = System.Drawing.Color.Black;
             this.btnTickets.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnTickets.Font = new System.Drawing.Font("Javanese Text", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTickets.ForeColor = System.Drawing.Color.LimeGreen;
             this.btnTickets.IconChar = FontAwesome.Sharp.IconChar.Truck;
-            this.btnTickets.IconColor = System.Drawing.Color.DodgerBlue;
+            this.btnTickets.IconColor = System.Drawing.Color.LimeGreen;
             this.btnTickets.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnTickets.Location = new System.Drawing.Point(0, 177);
             this.btnTickets.Name = "btnTickets";
@@ -80,14 +83,16 @@ namespace Account_Control {
             this.btnTickets.Text = "Remitos";
             this.btnTickets.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnTickets.UseVisualStyleBackColor = false;
+            this.btnTickets.Click += new System.EventHandler(this.btnTickets_Click);
             // 
             // btnCustomers
             // 
             this.btnCustomers.BackColor = System.Drawing.Color.Black;
             this.btnCustomers.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnCustomers.Font = new System.Drawing.Font("Javanese Text", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCustomers.ForeColor = System.Drawing.Color.OrangeRed;
             this.btnCustomers.IconChar = FontAwesome.Sharp.IconChar.Portrait;
-            this.btnCustomers.IconColor = System.Drawing.Color.DodgerBlue;
+            this.btnCustomers.IconColor = System.Drawing.Color.OrangeRed;
             this.btnCustomers.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnCustomers.Location = new System.Drawing.Point(0, 92);
             this.btnCustomers.Name = "btnCustomers";

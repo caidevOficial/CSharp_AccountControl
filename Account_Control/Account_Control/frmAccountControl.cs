@@ -37,5 +37,13 @@ namespace Account_Control {
         private void btnCustomers_Click(object sender, System.EventArgs e) {
             OpenChildForm(new frmCustomer());
         }
+
+        private void btnTickets_Click(object sender, System.EventArgs e) {
+            OpenChildForm(new frmTickets());
+        }
+
+        private void btnPayments_Click(object sender, System.EventArgs e) {
+            OpenChildForm(new frmPayments());
+        }
     }
 }

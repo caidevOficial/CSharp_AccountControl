@@ -36,7 +36,7 @@ namespace Account_Control {
             this.btnNewCustomer.IconChar = FontAwesome.Sharp.IconChar.ChevronCircleRight;
             this.btnNewCustomer.IconColor = System.Drawing.Color.OrangeRed;
             this.btnNewCustomer.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnNewCustomer.Location = new System.Drawing.Point(12, 25);
+            this.btnNewCustomer.Location = new System.Drawing.Point(12, 12);
             this.btnNewCustomer.Name = "btnNewCustomer";
             this.btnNewCustomer.Size = new System.Drawing.Size(185, 68);
             this.btnNewCustomer.TabIndex = 0;
@@ -52,7 +52,7 @@ namespace Account_Control {
             this.btnReadCustomers.IconChar = FontAwesome.Sharp.IconChar.ChevronCircleRight;
             this.btnReadCustomers.IconColor = System.Drawing.Color.OrangeRed;
             this.btnReadCustomers.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnReadCustomers.Location = new System.Drawing.Point(12, 99);
+            this.btnReadCustomers.Location = new System.Drawing.Point(12, 86);
             this.btnReadCustomers.Name = "btnReadCustomers";
             this.btnReadCustomers.Size = new System.Drawing.Size(185, 68);
             this.btnReadCustomers.TabIndex = 1;

@@ -39,10 +39,10 @@ namespace Models {
         public Ticket(DateTime date, short id)
             : this(date, id, 0) { }
 
-        public Ticket(DateTime date, short id, float amount)
-            : this(date, id, amount, 1) { }
+        public Ticket(DateTime date, float amount, short idCustomer)
+            : this(0, date, amount, idCustomer) { }
 
-        public Ticket(DateTime date, short id, float amount, short idCustomer)
+        public Ticket(short id, DateTime date, float amount, short idCustomer)
             : base(date, id, amount, idCustomer) { }
 
         #endregion

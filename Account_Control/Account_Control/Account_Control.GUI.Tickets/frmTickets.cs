@@ -22,47 +22,25 @@
  * SOFTWARE.
  */
 
-using System;
+ using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
-namespace Models {
-    public sealed class Payment : WorkItem {
-
-        #region Attributes
-
-        #endregion
-
-        #region Builders
-
-        public Payment(DateTime date, float amount)
-            : this(date, amount, 1) { }
-
-        public Payment(DateTime date, float amount, short idCustomer)
-            : this(0, date, amount, idCustomer) { }
-
-        public Payment(short id, DateTime date, float amount, short idCustomer)
-            : base(date, id, amount, idCustomer) { }
-
-        #endregion
-
-        #region Properties
-
-        #endregion
-
-        #region Operators
-
-        public static bool operator ==(Payment p1, Payment p2) {
-            if (!(p1 is null) && !(p2 is null)) {
-                return p1.WorkItemID == p2.WorkItemID;
-            }
-
-            return false;
+namespace Account_Control {
+    public partial class frmTickets : Form {
+        public frmTickets() {
+            InitializeComponent();
         }
 
-        public static bool operator !=(Payment p1, Payment p2) {
-            return !(p1 == p2);
+        private void btnNewTicket_Click(object sender, EventArgs e) {
+            frmAddTicket addTicket = new frmAddTicket();
+            addTicket.ShowDialog();
         }
-
-        #endregion
-
     }
 }

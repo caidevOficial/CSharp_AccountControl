@@ -70,28 +70,64 @@
     <Compile Include="frmAccountControl.Designer.cs">
       <DependentUpon>frmAccountControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmAddCustomer.cs">
+    <Compile Include="Account_Control.GUI.Customers\frmAddCustomer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmAddCustomer.Designer.cs">
+    <Compile Include="Account_Control.GUI.Customers\frmAddCustomer.Designer.cs">
       <DependentUpon>frmAddCustomer.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmCustomer.cs">
+    <Compile Include="Account_Control.GUI.Payments\frmAddPayment.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmCustomer.Designer.cs">
+    <Compile Include="Account_Control.GUI.Payments\frmAddPayment.Designer.cs">
+      <DependentUpon>frmAddPayment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Account_Control.GUI.Tickets\frmAddTicket.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Account_Control.GUI.Tickets\frmAddTicket.Designer.cs">
+      <DependentUpon>frmAddTicket.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Account_Control.GUI.Customers\frmCustomer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Account_Control.GUI.Customers\frmCustomer.Designer.cs">
       <DependentUpon>frmCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Account_Control.GUI.Payments\frmPayments.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Account_Control.GUI.Payments\frmPayments.Designer.cs">
+      <DependentUpon>frmPayments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Account_Control.GUI.Tickets\frmTickets.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Account_Control.GUI.Tickets\frmTickets.Designer.cs">
+      <DependentUpon>frmTickets.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmAccountControl.resx">
       <DependentUpon>frmAccountControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmAddCustomer.resx">
+    <EmbeddedResource Include="Account_Control.GUI.Customers\frmAddCustomer.resx">
       <DependentUpon>frmAddCustomer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmCustomer.resx">
+    <EmbeddedResource Include="Account_Control.GUI.Payments\frmAddPayment.resx">
+      <DependentUpon>frmAddPayment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Account_Control.GUI.Tickets\frmAddTicket.resx">
+      <DependentUpon>frmAddTicket.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Account_Control.GUI.Customers\frmCustomer.resx">
       <DependentUpon>frmCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Account_Control.GUI.Payments\frmPayments.resx">
+      <DependentUpon>frmPayments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Account_Control.GUI.Tickets\frmTickets.resx">
+      <DependentUpon>frmTickets.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -138,5 +174,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

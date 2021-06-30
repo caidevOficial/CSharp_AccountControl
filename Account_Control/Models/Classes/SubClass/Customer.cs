@@ -23,6 +23,7 @@
  */
 
 using System;
+using System.Text;
 
 namespace Models {
     public sealed class Customer : Person {
@@ -89,18 +90,18 @@ namespace Models {
         public string Phone {
             get => this.phone;
             set {
-                if (!String.IsNullOrWhiteSpace(value)) {
+                //if (!String.IsNullOrWhiteSpace(value)) {
                     this.phone = value;
-                }
+                //}
             }
         }
 
         public string Cuil {
             get => this.cuil;
             set {
-                if (!String.IsNullOrWhiteSpace(value)) {
+                //if (!String.IsNullOrWhiteSpace(value)) {
                     this.cuil = value;
-                }
+                //}
             }
         }
 
@@ -116,9 +117,9 @@ namespace Models {
         public string BussinessName {
             get => this.bussinessName;
             set {
-                if (!String.IsNullOrWhiteSpace(value)) {
+                //if (!String.IsNullOrWhiteSpace(value)) {
                     this.bussinessName = value;
-                }
+                //}
             }
         }
 
@@ -134,9 +135,9 @@ namespace Models {
         public string BussinessAddress {
             get => this.bussinessAddress;
             set {
-                if (!String.IsNullOrWhiteSpace(value)) {
+                //if (!String.IsNullOrWhiteSpace(value)) {
                     this.bussinessAddress = value;
-                }
+                //}
             }
         }
 
@@ -168,6 +169,17 @@ namespace Models {
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Gets a string with info of the customer.
+        /// </summary>
+        /// <returns>A string with info of the customer.</returns>
+        public override string ToString() {
+
+            StringBuilder data = new StringBuilder();
+            data.Append($"{this.ID} {this.Name} {this.BussinessName}.");
+            return data.ToString();
+        }
 
         #endregion
     }

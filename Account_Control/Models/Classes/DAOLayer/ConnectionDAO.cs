@@ -63,29 +63,39 @@ namespace DAOLayer {
 
         }
 
+        public static String GetTimestamp(DateTime value) {
+            return value.ToString("yyyyMMddHHmmssffff");
+        }
+
         #region Tickets_Related
 
         /// <summary>
         /// Creates a ticket in the DB.
         /// </summary>
         /// <param name="ticket">Ticket to be inserted into the db.</param>
-        public static void CreateTicket(Ticket ticket) {
+        public static bool CreateTicket(Ticket ticket) {
+            bool success = false;
+            //String timestamp;
             try {
                 myConnection.Open();
                 if (!(ticket is null)) {
-                    myCommand.CommandText = $"INSERT INTO Tickets Values(@Date,@id_Customer,@Amount);";
+                    myCommand.CommandText = $"INSERT INTO Tickets Values(@Date, @id_Customer, @Amount);";
                     myCommand.Parameters.AddWithValue("@Date", ticket.WorkItemDate);
                     myCommand.Parameters.AddWithValue("@id_Customer", ticket.WorkItemIDCustomer);
-                    myCommand.Parameters.AddWithValue("@Amount", ticket.WorkItemAmount);
+                    myCommand.Parameters.AddWithValue("@Amount", Math.Round(ticket.WorkItemAmount, 2));
                     int rows = myCommand.ExecuteNonQuery();
+                    success = true;
                 } else {
                     throw new Exception();
                 }
             } catch (Exception ex) {
                 throw new Exception("No se pudo crear el ticket", ex);
             } finally {
+                myCommand.Parameters.Clear();
                 myConnection.Close();
             }
+
+            return success;
         }
 
         public static void ReadAllTickets() {
@@ -108,20 +118,24 @@ namespace DAOLayer {
         /// Creates a Payment in the DB.
         /// </summary>
         /// <param name="payment">Payment to be inserted into the db.</param>
-        public static void CreatePayment(Payment payment) {
+        public static bool CreatePayment(Payment payment) {
+            bool success = false;
             try {
                 myConnection.Open();
-                myCommand.CommandText = $"INSERT INTO Payments Values(@Date,@Amount,@IdCustomer);";
+                myCommand.CommandText = $"INSERT INTO Payments Values(@Date,@IdCustomer,@Amount);";
                 myCommand.Parameters.AddWithValue("@Date", payment.WorkItemDate);
-                myCommand.Parameters.AddWithValue("@Amount", payment.WorkItemAmount);
+                myCommand.Parameters.AddWithValue("@Amount", Math.Round(payment.WorkItemAmount, 2));
                 myCommand.Parameters.AddWithValue("@IdCustomer", payment.WorkItemIDCustomer);
                 int rows = myCommand.ExecuteNonQuery();
+                success = true;
             } catch (Exception ex) {
-                throw new Exception("No se pudo crear el Pag..", ex);
+                throw new Exception("No se pudo crear el Pago.", ex);
             } finally {
                 myCommand.Parameters.Clear();
                 myConnection.Close();
             }
+
+            return success;
         }
 
         public static List<Payment> ReadAllPayments() {
@@ -131,12 +145,14 @@ namespace DAOLayer {
             myCommand.CommandText = "Select * from Payments";
             myConnection.Open();
             SqlDataReader myReader = myCommand.ExecuteReader();
-            while (myReader.Read()) {
-                float.TryParse(myReader["Amount"].ToString(), out float amount);
-                actualPayment = new Payment(Convert.ToDateTime(myReader["Date"]), Convert.ToInt16(myReader["id"]), amount, Convert.ToInt16(myReader["Id_Customer"]));
+            DataTable myDT = new DataTable();
+            myDT.Load(myReader);
+            foreach (DataRow item in myDT.Rows) {
+                float.TryParse(item["Amount"].ToString(), out float amount);
+                actualPayment = new Payment(Convert.ToInt16(item["id"]), Convert.ToDateTime(item["Date"]), amount, Convert.ToInt16(item["Id_Customer"]));
                 payments.Add(actualPayment);
             }
-            myReader.Close();
+            //myReader.Close();
             myConnection.Close();
 
             return payments;
@@ -150,13 +166,15 @@ namespace DAOLayer {
             myCommand.Parameters.AddWithValue("@IdCustomer", idCustomer);
             myConnection.Open();
             SqlDataReader myReader = myCommand.ExecuteReader();
-            while (myReader.Read()) {
-                float.TryParse(myReader["Amount"].ToString(), out float amount);
-                actualPayment = new Payment(Convert.ToDateTime(myReader["Date"]), Convert.ToInt16(myReader["id"]), amount, Convert.ToInt16(myReader["Id_Customer"]));
+            DataTable myDT = new DataTable();
+            myDT.Load(myReader);
+            foreach (DataRow item in myDT.Rows) {
+                float.TryParse(item["Amount"].ToString(), out float amount);
+                actualPayment = new Payment(Convert.ToInt16(item["id"]), Convert.ToDateTime(item["Date"]), amount, Convert.ToInt16(item["Id_Customer"]));
                 payments.Add(actualPayment);
             }
             myCommand.Parameters.Clear();
-            myReader.Close();
+            //myReader.Close();
             myConnection.Close();
 
             return payments;
@@ -170,13 +188,15 @@ namespace DAOLayer {
             myCommand.Parameters.AddWithValue("@paymentDate", paymentDate);
             myConnection.Open();
             SqlDataReader myReader = myCommand.ExecuteReader();
-            while (myReader.Read()) {
-                float.TryParse(myReader["Amount"].ToString(), out float amount);
-                actualPayment = new Payment(Convert.ToDateTime(myReader["Date"]), Convert.ToInt16(myReader["id"]), amount, Convert.ToInt16(myReader["Id_Customer"]));
+            DataTable myDT = new DataTable();
+            myDT.Load(myReader);
+            foreach (DataRow item in myDT.Rows) {
+                float.TryParse(item["Amount"].ToString(), out float amount);
+                actualPayment = new Payment(Convert.ToInt16(item["id"]), Convert.ToDateTime(item["Date"]), amount, Convert.ToInt16(item["Id_Customer"]));
                 payments.Add(actualPayment);
             }
             myCommand.Parameters.Clear();
-            myReader.Close();
+            //myReader.Close();
             myConnection.Close();
 
             return payments;
@@ -259,13 +279,14 @@ namespace DAOLayer {
             myCommand.CommandText = "Select * from Customer";
             myConnection.Open();
             SqlDataReader myReader = myCommand.ExecuteReader();
-            while (myReader.Read()) {
-                float.TryParse(myReader["Amount"].ToString(), out float amount);
-                actualCustomer = new Customer(Convert.ToInt16(myReader["id"]), myReader["name"].ToString(), myReader["surname"].ToString(),
-                    myReader["phone"].ToString(), myReader["cuil"].ToString(), myReader["bussines_name"].ToString(), (BussinessType)myReader["bussiness_type"], myReader["bussines_address"].ToString(), Convert.ToInt16(myReader["id_vendor"]));
+            DataTable myDT = new DataTable();
+            myDT.Load(myReader);
+            foreach (DataRow item in myDT.Rows) {
+                Enum.TryParse(item["bussiness_type"].ToString(), out BussinessType bType);
+                actualCustomer = new Customer(Convert.ToInt16(item["id"]), item["name"].ToString(), item["surname"].ToString(), item["phone"].ToString(), item["cuil"].ToString(), item["bussiness_name"].ToString(), bType, item["bussiness_address"].ToString(), Convert.ToInt16(item["id_vendor"]));
                 customers.Add(actualCustomer);
             }
-            myReader.Close();
+            //myReader.Close();
             myConnection.Close();
 
             return customers;
@@ -294,8 +315,10 @@ namespace DAOLayer {
             myCommand.CommandText = "Select * from Vendor";
             myConnection.Open();
             SqlDataReader myReader = myCommand.ExecuteReader();
-            while (myReader.Read()) {
-                actualVendor = new Vendor(Convert.ToInt16(myReader["id"]), myReader["name"].ToString(), myReader["surname"].ToString());
+            DataTable myDT = new DataTable();
+            myDT.Load(myReader);
+            foreach (DataRow item in myDT.Rows) {
+                actualVendor = new Vendor(Convert.ToInt16(item["id"]), item["name"].ToString(), item["surname"].ToString());
                 vendors.Add(actualVendor);
             }
             myReader.Close();
