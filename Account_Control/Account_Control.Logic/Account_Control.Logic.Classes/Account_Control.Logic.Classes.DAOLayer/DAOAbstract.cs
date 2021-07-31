@@ -23,24 +23,20 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAOLayer {
     public abstract class DAOAbstract {
 
         #region Attributes
 
-        private static string connString;
-        private static SqlConnection myConnection;
-        private static SqlCommand myCommand;
+        private static readonly string connString;
+        private static readonly SqlConnection myConnection;
+        private static readonly SqlCommand myCommand;
         private static readonly string serverName = "localhost";
         private static readonly string dbName = "AccountControl";
-        private static bool tConecction = true;
+        private static readonly bool tConecction = true;
 
         #endregion
 

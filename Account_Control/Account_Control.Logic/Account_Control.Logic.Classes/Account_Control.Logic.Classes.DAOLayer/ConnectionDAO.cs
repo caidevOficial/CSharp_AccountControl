@@ -29,7 +29,7 @@ using System.Data.SqlClient;
 using Models;
 
 namespace DAOLayer {
-    public class ConnectionDAO : DAOAbstract{
+    public class ConnectionDAO : DAOAbstract {
 
         #region Attributes
 
@@ -37,7 +37,7 @@ namespace DAOLayer {
         private const string UPDATE_VERB = "Updating";
         private const string DELETE_VERB = "Deleting";
         private const string READ_VERB = "Reading";
-        
+
         #endregion
 
         #region Methods
@@ -54,9 +54,9 @@ namespace DAOLayer {
         /// <returns>True if can insert into the db, otherwise returns false.</returns>
         public bool Create(object workItem, EntityType typeEntity) {
             bool success = false;
-            if(typeEntity is EntityType.Customer) {
+            if (typeEntity is EntityType.Customer) {
                 success = this.CreateCustomer((Customer)workItem);
-            }else if(typeEntity is EntityType.Ticket) {
+            } else if (typeEntity is EntityType.Ticket) {
                 success = this.CreateTicket((Ticket)workItem);
             } else {
                 success = this.CreatePayment((Payment)workItem);
@@ -139,7 +139,7 @@ namespace DAOLayer {
             bool success = false;
             string objectName = payment.GetType().Name;
             try {
-                if(!(payment is null)) {
+                if (!(payment is null)) {
                     ConnectionDAO.MyConection.Open();
                     ConnectionDAO.MyCommand.CommandText = $"INSERT INTO Payments Values(@Date,@IdCustomer,@Amount);";
                     ConnectionDAO.MyCommand.Parameters.AddWithValue("@Date", payment.WorkItemDate);
