@@ -33,7 +33,7 @@ namespace Account_Control {
 
         private List<Customer> customers;
         private Payment myPayment;
-        private ConnectionDAO daoManager;
+        private readonly ConnectionDAO daoManager;
 
         /// <summary>
         /// Basic Constructor

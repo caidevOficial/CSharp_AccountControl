@@ -9,7 +9,7 @@ namespace Account_Control {
 
         private List<Customer> customers;
         private Ticket myTicket;
-        private ConnectionDAO daoManager;
+        private readonly ConnectionDAO daoManager;
         public frmAddTicket() {
             InitializeComponent();
             daoManager = new ConnectionDAO();

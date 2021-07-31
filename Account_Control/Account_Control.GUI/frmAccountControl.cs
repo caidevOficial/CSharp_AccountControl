@@ -1,5 +1,4 @@
 ﻿using System.Windows.Forms;
-using DAOLayer;
 
 namespace Account_Control {
     public partial class frmAccountControl : Form {
@@ -12,7 +11,7 @@ namespace Account_Control {
         }
 
         private void Form1_Load(object sender, System.EventArgs e) {
-            ConnectionDAO.Nothing();
+
         }
 
         /// <summary>

@@ -31,7 +31,7 @@ namespace Account_Control {
     public partial class frmAddCustomer : Form {
 
         private readonly Customer myCustomer;
-        private ConnectionDAO daoManager;
+        private readonly ConnectionDAO daoManager;
 
         public frmAddCustomer() {
             InitializeComponent();
