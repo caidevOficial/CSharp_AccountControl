@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Account_Control.Logic.Classes\Account_Control.Logic.Classes.DAOLayer\ConnectionDAO.cs" />
     <Compile Include="Account_Control.Logic.Classes\Account_Control.Logic.Classes.DAOLayer\DAOAbstract.cs" />
+    <Compile Include="Account_Control.Logic.Classes\Account_Control.Logic.Classes.DAOLayer\IDAOCRUD.cs" />
     <Compile Include="Account_Control.Logic.Classes\Account_Control.Logic.Classes.SubClass\Vendor.cs" />
     <Compile Include="Account_Control.Logic.Enums\BussinessType.cs" />
     <Compile Include="Account_Control.Logic.Classes\Establishment.cs" />

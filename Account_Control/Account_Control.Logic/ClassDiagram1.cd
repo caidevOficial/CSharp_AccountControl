@@ -54,6 +54,28 @@
       <FileName>Account_Control.Logic.Classes\Account_Control.Logic.Classes.SuperClass\WorkItem.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="DAOLayer.DAOAbstract">
+    <Position X="0.5" Y="8.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAADIAAAAQAAAAAAAAAAIAAAAAAAgAAAAIAAQA=</HashCode>
+      <FileName>Account_Control.Logic.Classes\Account_Control.Logic.Classes.DAOLayer\DAOAbstract.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DAOLayer.ConnectionDAO">
+    <Position X="3.75" Y="8.75" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>CIAIACwwAQAAgQAABAAAAAgAgACEgkAQAIAAIAAEhIA=</HashCode>
+      <FileName>Account_Control.Logic.Classes\Account_Control.Logic.Classes.DAOLayer\ConnectionDAO.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.21" />
+  </Class>
+  <Interface Name="DAOLayer.IDAOCRUD&lt;T&gt;">
+    <Position X="0.5" Y="12.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAACAAgAAAAAAAAAAgAA=</HashCode>
+      <FileName>Account_Control.Logic.Classes\Account_Control.Logic.Classes.DAOLayer\IDAOCRUD.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
   <Enum Name="Models.BussinessType">
     <Position X="5.5" Y="6.25" Width="1.5" />
     <TypeIdentifier>
