@@ -73,7 +73,7 @@ namespace Account_Control {
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmCustomer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Customers Management";
+            this.Text = "Customers";
             this.ResumeLayout(false);
 
         }

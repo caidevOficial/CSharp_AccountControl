@@ -24,16 +24,36 @@
 
 using System;
 using System.Windows.Forms;
+using DAOLayer;
 
 namespace Account_Control {
     public partial class frmTickets : Form {
+
+        ConnectionDAO daoManager;
+
         public frmTickets() {
             InitializeComponent();
+            daoManager = new ConnectionDAO();
         }
 
         private void btnNewTicket_Click(object sender, EventArgs e) {
             frmAddTicket addTicket = new frmAddTicket();
             addTicket.ShowDialog();
+        }
+
+        /// <summary>
+        /// EventHandler of Button Read Tickets.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnReadTickets_Click(object sender, EventArgs e) {
+            this.dgvTickets.DataSource = daoManager.ReadAllTickets();
+            this.dgvTickets.Columns[0].HeaderText = "ID";
+            this.dgvTickets.Columns[1].HeaderText = "Fecha";
+            this.dgvTickets.Columns[2].HeaderText = "ID_Cliente";
+            this.dgvTickets.Columns[3].HeaderText = "Cliente";
+            this.dgvTickets.Columns[4].HeaderText = "Monto";
+            this.dgvTickets.Columns[4].DefaultCellStyle.Format = "C2";
         }
     }
 }
