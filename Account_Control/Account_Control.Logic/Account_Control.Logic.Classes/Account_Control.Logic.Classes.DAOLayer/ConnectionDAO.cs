@@ -99,15 +99,15 @@ namespace DAOLayer {
         public List<Ticket> ReadAllTickets() {
             List<Ticket> tickets = new List<Ticket>();
             Ticket actualTicket;
-            ConnectionDAO.MyCommand.CommandText = "Select * from Tickets";
+            ConnectionDAO.MyCommand.CommandText = "Select T.id, T.Date, T.id_customer, C.name, T.amount FROM Tickets as T, Customer as C WHERE C.id = T.id_customer";
             ConnectionDAO.MyConection.Open();
             SqlDataReader myReader = ConnectionDAO.MyCommand.ExecuteReader();
             DataTable myDT = new DataTable();
             myDT.Load(myReader);
             try {
                 foreach (DataRow item in myDT.Rows) {
-                    float.TryParse(item["Amount"].ToString(), out float amount);
-                    actualTicket = new Ticket(Convert.ToInt16(item["id"]), Convert.ToDateTime(item["Date"]), amount, Convert.ToInt16(item["Id_Customer"]));
+                    float.TryParse(item["amount"].ToString(), out float amount);
+                    actualTicket = new Ticket(Convert.ToInt16(item["id"]), Convert.ToDateTime(item["Date"]), item["name"].ToString(), amount, Convert.ToInt16(item["id_customer"]));
                     tickets.Add(actualTicket);
                 }
             } catch (Exception ex) {
@@ -159,7 +159,7 @@ namespace DAOLayer {
 
             List<Ticket> tickets = new List<Ticket>();
             Ticket actualTicket;
-            ConnectionDAO.MyCommand.CommandText = "Select * from Tickets WHERE Date = @ticketDate";
+            ConnectionDAO.MyCommand.CommandText = "Select T.id, T.Date, C.name, T.Amount from Tickets as T, Customers as C WHERE Date = @ticketDate AND C.id = T.id_customer";
             ConnectionDAO.MyCommand.Parameters.AddWithValue("@ticketDate", ticketDate);
             ConnectionDAO.MyConection.Open();
             SqlDataReader myReader = ConnectionDAO.MyCommand.ExecuteReader();
@@ -168,7 +168,7 @@ namespace DAOLayer {
             try {
                 foreach (DataRow item in myDT.Rows) {
                     float.TryParse(item["Amount"].ToString(), out float amount);
-                    actualTicket = new Ticket(Convert.ToInt16(item["id"]), Convert.ToDateTime(item["Date"]), amount, Convert.ToInt16(item["Id_Customer"]));
+                    actualTicket = new Ticket(Convert.ToInt16(item["id"]), Convert.ToDateTime(item["Date"]), item["name"].ToString(), amount, Convert.ToInt16(item["Id_Customer"]));
                     tickets.Add(actualTicket);
                 }
             } catch (Exception ex) {
@@ -227,7 +227,7 @@ namespace DAOLayer {
         List<Ticket> IDAOCRUD<Ticket>.ReadAllObjects() {
             List<Ticket> tickets = new List<Ticket>();
             Ticket actualTicket;
-            ConnectionDAO.MyCommand.CommandText = "Select * from Tickets";
+            ConnectionDAO.MyCommand.CommandText = "Select T.id, T.Date, C.name, T.Amount from Tickets as T, Customers as C WHERE C.id = T.id_customer";
             ConnectionDAO.MyConection.Open();
             SqlDataReader myReader = ConnectionDAO.MyCommand.ExecuteReader();
             DataTable myDT = new DataTable();
@@ -235,7 +235,7 @@ namespace DAOLayer {
             try {
                 foreach (DataRow item in myDT.Rows) {
                     float.TryParse(item["Amount"].ToString(), out float amount);
-                    actualTicket = new Ticket(Convert.ToInt16(item["id"]), Convert.ToDateTime(item["Date"]), amount, Convert.ToInt16(item["Id_Customer"]));
+                    actualTicket = new Ticket(Convert.ToInt16(item["id"]), Convert.ToDateTime(item["Date"]), item["name"].ToString() ,amount, Convert.ToInt16(item["Id_Customer"]));
                     tickets.Add(actualTicket);
                 }
             } catch (Exception ex) {
