@@ -45,6 +45,11 @@ namespace Models {
         public Ticket(short id, DateTime date, float amount, short idCustomer)
             : base(date, id, amount, idCustomer) { }
 
+        public Ticket(short id, DateTime date, string customerName, float amount, short idCustomer)
+            :this(id, date, amount, idCustomer) {
+            this.CustomerName = customerName;
+        }
+
         #endregion
 
         #region Properties

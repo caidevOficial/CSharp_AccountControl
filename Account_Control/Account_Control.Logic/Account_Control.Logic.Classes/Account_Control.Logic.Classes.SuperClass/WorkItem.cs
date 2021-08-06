@@ -30,6 +30,7 @@ namespace Models {
         #region Attributes
 
         private short workItemID;
+        private string customerName;
         private DateTime workItemDate;
         private float workItemAmount;
         private short workItemIdCustomer;
@@ -86,18 +87,6 @@ namespace Models {
         }
 
         /// <summary>
-        /// Gets/Sets: the Amount of the WorkItem.
-        /// </summary>
-        public float WorkItemAmount {
-            get => this.workItemAmount;
-            set {
-                if (value >= 0) {
-                    this.workItemAmount = value;
-                }
-            }
-        }
-
-        /// <summary>
         /// Gets/Sets: the Customer's ID of the WorkItem.
         /// </summary>
         public short WorkItemIDCustomer {
@@ -105,6 +94,30 @@ namespace Models {
             set {
                 if (value > 0) {
                     this.workItemIdCustomer = value;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets/Sets: the Customer's Name of the WorkItem.
+        /// </summary>
+        public string CustomerName {
+            get => this.customerName;
+            set {
+                if (!String.IsNullOrWhiteSpace(value)) {
+                    this.customerName = value;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets/Sets: the Amount of the WorkItem.
+        /// </summary>
+        public float WorkItemAmount {
+            get => this.workItemAmount;
+            set {
+                if (value >= 0) {
+                    this.workItemAmount = value;
                 }
             }
         }
