@@ -26,6 +26,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using FontAwesome.Sharp;
+using Models;
 
 namespace Account_Control {
     public partial class frmAccountControl : Form {
@@ -40,7 +41,7 @@ namespace Account_Control {
         /// <summary>
         /// Struct of RGB colors.
         /// </summary>
-        private struct RRGBColors {
+        private struct FormColors {
             public static Color customer = Color.OrangeRed; //ffff4500
             public static Color tickets = Color.LimeGreen;  //ff32cd32
             public static Color payments = Color.RoyalBlue; //ff4169e1
@@ -99,8 +100,8 @@ namespace Account_Control {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnCustomers_Click(object sender, EventArgs e) {
-            this.ActivateButton(sender, RRGBColors.customer);
-            this.OpenChildForm(new frmCustomer());
+            this.ActivateButton(sender, FormColors.customer);
+            this.OpenChildForm(new frmAccountManager(FormType.Customer, FormColors.customer));
         }
 
         /// <summary>
@@ -109,8 +110,8 @@ namespace Account_Control {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnTickets_Click(object sender, EventArgs e) {
-            this.ActivateButton(sender, RRGBColors.tickets);
-            this.OpenChildForm(new frmTickets());
+            this.ActivateButton(sender, FormColors.tickets);
+            this.OpenChildForm(new frmAccountManager(FormType.Ticket, FormColors.tickets));
         }
 
         /// <summary>
@@ -119,8 +120,8 @@ namespace Account_Control {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnPayments_Click(object sender, EventArgs e) {
-            this.ActivateButton(sender, RRGBColors.payments);
-            this.OpenChildForm(new frmPayments());
+            this.ActivateButton(sender, FormColors.payments);
+            this.OpenChildForm(new frmAccountManager(FormType.Payment, FormColors.payments));
         }
 
         /// <summary>
