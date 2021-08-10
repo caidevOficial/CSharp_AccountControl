@@ -64,62 +64,6 @@ namespace DAOLayer {
         #region Tickets_Related
 
         /// <summary>
-        /// Creates a ticket in the DB.
-        /// </summary>
-        /// <param name="ticket">Ticket to be inserted into the db.</param>
-        private bool CreateTicket(Ticket ticket) {
-            bool success = false;
-            string objectName = ticket.GetType().Name;
-            try {
-                if (!(ticket is null)) {
-                    ConnectionDAO.MyConection.Open();
-                    ConnectionDAO.MyCommand.CommandText = $"INSERT INTO Tickets Values(@Date, @id_Customer, @Amount);";
-                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@Date", ticket.WorkItemDate);
-                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@id_Customer", ticket.WorkItemIDCustomer);
-                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@Amount", Math.Round(ticket.WorkItemAmount, 2));
-                    int rows = ConnectionDAO.MyCommand.ExecuteNonQuery();
-                    success = true;
-                } else {
-                    throw new ArgumentNullException();
-                }
-            } catch (Exception ex) {
-                throw new Exception($"Error {CREATE_VERB} {objectName}", ex);
-            } finally {
-                ConnectionDAO.MyCommand.Parameters.Clear();
-                ConnectionDAO.MyConection.Close();
-            }
-
-            return success;
-        }
-
-        /// <summary>
-        /// Gets a list of all tickets of the DB.
-        /// </summary>
-        /// <returns>A list of all tickets of the DB.</returns>
-        public List<Ticket> ReadAllTickets() {
-            List<Ticket> tickets = new List<Ticket>();
-            Ticket actualTicket;
-            ConnectionDAO.MyCommand.CommandText = "Select T.id, T.Date, T.id_customer, C.name, T.amount FROM Tickets as T, Customer as C WHERE C.id = T.id_customer";
-            ConnectionDAO.MyConection.Open();
-            SqlDataReader myReader = ConnectionDAO.MyCommand.ExecuteReader();
-            DataTable myDT = new DataTable();
-            myDT.Load(myReader);
-            try {
-                foreach (DataRow item in myDT.Rows) {
-                    float.TryParse(item["amount"].ToString(), out float amount);
-                    actualTicket = new Ticket(Convert.ToInt16(item["id"]), Convert.ToDateTime(item["Date"]), item["name"].ToString(), amount, Convert.ToInt16(item["id_customer"]));
-                    tickets.Add(actualTicket);
-                }
-            } catch (Exception ex) {
-                throw new Exception($"Error {READ_VERB} tickets.", ex);
-            } finally {
-                ConnectionDAO.MyConection.Close();
-            }
-
-            return tickets;
-        }
-
-        /// <summary>
         /// Reads all tickets of customer id 'idCustomer'.
         /// </summary>
         /// <param name="idCustomer">ID of the customer to search it's tickets.</param>
@@ -227,15 +171,15 @@ namespace DAOLayer {
         List<Ticket> IDAOCRUD<Ticket>.ReadAllObjects() {
             List<Ticket> tickets = new List<Ticket>();
             Ticket actualTicket;
-            ConnectionDAO.MyCommand.CommandText = "Select T.id, T.Date, C.name, T.Amount from Tickets as T, Customers as C WHERE C.id = T.id_customer";
+            ConnectionDAO.MyCommand.CommandText = "Select T.id, T.Date, T.id_customer, C.name, C.surname, C.bussiness_name, T.amount FROM Tickets as T, Customer as C WHERE C.id = T.id_customer";
             ConnectionDAO.MyConection.Open();
             SqlDataReader myReader = ConnectionDAO.MyCommand.ExecuteReader();
             DataTable myDT = new DataTable();
             myDT.Load(myReader);
             try {
                 foreach (DataRow item in myDT.Rows) {
-                    float.TryParse(item["Amount"].ToString(), out float amount);
-                    actualTicket = new Ticket(Convert.ToInt16(item["id"]), Convert.ToDateTime(item["Date"]), item["name"].ToString() ,amount, Convert.ToInt16(item["Id_Customer"]));
+                    float.TryParse(item["amount"].ToString(), out float amount);
+                    actualTicket = new Ticket(Convert.ToInt16(item["id"]), Convert.ToDateTime(item["Date"]), item["name"].ToString(), item["surname"].ToString(), item["bussiness_name"].ToString(), amount, Convert.ToInt16(item["id_customer"]));
                     tickets.Add(actualTicket);
                 }
             } catch (Exception ex) {
@@ -314,33 +258,6 @@ namespace DAOLayer {
         /// <summary>
         /// Creates a Payment in the DB.
         /// </summary>
-        /// <param name="payment">Payment to be inserted into the db.</param>
-        private bool CreatePayment(Payment payment) {
-            bool success = false;
-            string objectName = payment.GetType().Name;
-            try {
-                if (!(payment is null)) {
-                    ConnectionDAO.MyConection.Open();
-                    ConnectionDAO.MyCommand.CommandText = $"INSERT INTO Payments Values(@Date,@IdCustomer,@Amount);";
-                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@Date", payment.WorkItemDate);
-                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@Amount", Math.Round(payment.WorkItemAmount, 2));
-                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@IdCustomer", payment.WorkItemIDCustomer);
-                    int rows = ConnectionDAO.MyCommand.ExecuteNonQuery();
-                    success = true;
-                }
-            } catch (Exception ex) {
-                throw new Exception($"Error {CREATE_VERB} {objectName}.", ex);
-            } finally {
-                ConnectionDAO.MyCommand.Parameters.Clear();
-                ConnectionDAO.MyConection.Close();
-            }
-
-            return success;
-        }
-
-        /// <summary>
-        /// Creates a Payment in the DB.
-        /// </summary>
         /// <param name="myObject">Payment to be inserted into the db.</param>
         public bool CreateObject(Payment myObject) {
             bool success = false;
@@ -369,43 +286,25 @@ namespace DAOLayer {
         /// Gets a list of all Payments of the DB.
         /// </summary>
         /// <returns>A list of all Payments of the DB.</returns>
-        public static List<Payment> ReadAllPayments() {
-
-            List<Payment> payments = new List<Payment>();
-            Payment actualPayment;
-            ConnectionDAO.MyCommand.CommandText = "Select * from Payments";
-            ConnectionDAO.MyConection.Open();
-            SqlDataReader myReader = ConnectionDAO.MyCommand.ExecuteReader();
-            DataTable myDT = new DataTable();
-            myDT.Load(myReader);
-            foreach (DataRow item in myDT.Rows) {
-                float.TryParse(item["Amount"].ToString(), out float amount);
-                actualPayment = new Payment(Convert.ToInt16(item["id"]), Convert.ToDateTime(item["Date"]), amount, Convert.ToInt16(item["Id_Customer"]));
-                payments.Add(actualPayment);
-            }
-            ConnectionDAO.MyConection.Close();
-
-            return payments;
-        }
-
-        /// <summary>
-        /// Gets a list of all Payments of the DB.
-        /// </summary>
-        /// <returns>A list of all Payments of the DB.</returns>
         public List<Payment> ReadAllObjects() {
             List<Payment> payments = new List<Payment>();
             Payment actualPayment;
-            ConnectionDAO.MyCommand.CommandText = "Select * from Payments";
+            ConnectionDAO.MyCommand.CommandText = "Select T.id, T.Date, T.id_customer, C.name, T.amount FROM Payments as T, Customer as C WHERE C.id = T.id_customer";
             ConnectionDAO.MyConection.Open();
             SqlDataReader myReader = ConnectionDAO.MyCommand.ExecuteReader();
             DataTable myDT = new DataTable();
             myDT.Load(myReader);
-            foreach (DataRow item in myDT.Rows) {
-                float.TryParse(item["Amount"].ToString(), out float amount);
-                actualPayment = new Payment(Convert.ToInt16(item["id"]), Convert.ToDateTime(item["Date"]), amount, Convert.ToInt16(item["Id_Customer"]));
-                payments.Add(actualPayment);
+            try {
+                foreach (DataRow item in myDT.Rows) {
+                    float.TryParse(item["amount"].ToString(), out float amount);
+                    actualPayment = new Payment(Convert.ToInt16(item["id"]), Convert.ToDateTime(item["Date"]), item["name"].ToString(), amount, Convert.ToInt16(item["id_customer"]));
+                    payments.Add(actualPayment);
+                }
+            } catch (Exception ex) {
+                throw new Exception($"Error {READ_VERB} payments.", ex);
+            } finally {
+                ConnectionDAO.MyConection.Close();
             }
-            ConnectionDAO.MyConection.Close();
 
             return payments;
         }
@@ -605,7 +504,7 @@ namespace DAOLayer {
             return success;
         }
 
-        public static List<Customer> ReadAllCustomers() {
+        public List<Customer> ReadAllCustomers() {
             List<Customer> customers = new List<Customer>();
             Customer actualCustomer;
             ConnectionDAO.MyCommand.CommandText = "Select * from Customer";
@@ -616,7 +515,7 @@ namespace DAOLayer {
             try {
                 foreach (DataRow item in myDT.Rows) {
                     Enum.TryParse(item["bussiness_type"].ToString(), out BussinessType bType);
-                    actualCustomer = new Customer(Convert.ToInt16(item["id"]), item["name"].ToString(), item["surname"].ToString(), item["phone"].ToString(), item["cuil"].ToString(), item["bussiness_name"].ToString(), bType, item["bussiness_address"].ToString(), Convert.ToInt16(item["id_vendor"]));
+                    actualCustomer = new Customer(Convert.ToInt16(item["id"]), item["name"].ToString(), item["surname"].ToString(), item["phone"].ToString(), item["cuil"].ToString(), item["bussiness_name"].ToString(), bType, item["bussiness_address"].ToString(), item["city"].ToString(), Convert.ToInt16(item["id_vendor"]));
                     customers.Add(actualCustomer);
                 }
             } catch (Exception ex) {
@@ -644,7 +543,7 @@ namespace DAOLayer {
         /// Reads all vendors from the DB.
         /// </summary>
         /// <returns>A list of all vendors.</returns>
-        public static List<Vendor> ReadAllVendors() {
+        public List<Vendor> ReadAllVendors() {
 
             List<Vendor> vendors = new List<Vendor>();
             Vendor actualVendor;
