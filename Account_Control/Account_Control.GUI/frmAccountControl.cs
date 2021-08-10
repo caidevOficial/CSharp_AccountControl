@@ -35,7 +35,7 @@ namespace Account_Control {
         private Panel leftBorderBtn;
         private IconButton currentBtn;
         private static Color lastColorSelected = Color.RoyalBlue;
-        private const string version = "V2.1.1";
+        private const string version = "V2.1.3";
         private const string author = "By FacuFalcone";
 
         /// <summary>
