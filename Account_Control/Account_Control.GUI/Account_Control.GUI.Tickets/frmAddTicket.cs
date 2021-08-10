@@ -16,7 +16,7 @@ namespace Account_Control {
         }
 
         private void frmAddTicket_Load(object sender, EventArgs e) {
-            customers = ConnectionDAO.ReadAllCustomers();
+            customers = daoManager.ReadAllCustomers();
             cmbCustomer.DataSource = customers;
         }
 

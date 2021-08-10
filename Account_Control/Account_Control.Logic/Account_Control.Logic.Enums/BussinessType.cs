@@ -41,6 +41,12 @@ namespace Models {
         Ticket
     }
 
+    public enum FormType {
+        Customer,
+        Ticket,
+        Payment
+    }
+
     #endregion
 
 }

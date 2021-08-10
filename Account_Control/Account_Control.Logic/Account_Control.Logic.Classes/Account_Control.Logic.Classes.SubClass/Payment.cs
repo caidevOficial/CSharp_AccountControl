@@ -42,6 +42,17 @@ namespace Models {
         public Payment(short id, DateTime date, float amount, short idCustomer)
             : base(date, id, amount, idCustomer) { }
 
+        public Payment(short id, DateTime date, string customerName, float amount, short idCustomer)
+            : this(id, date, amount, idCustomer) {
+            this.CustomerName = customerName;
+        }
+
+        public Payment(short id, DateTime date, string customerName, string customerSurname, string customerBussiness, float amount, short idCustomer)
+            : this(id, date, customerName, amount, idCustomer) {
+            this.CustomerSurname = customerSurname;
+            this.CustomerBussiness = customerBussiness;
+        }
+
         #endregion
 
         #region Properties
