@@ -87,15 +87,21 @@ namespace Models {
 
         #region Properties
 
+        /// <summary>
+        /// Gets/Sets the Phone of the customer.
+        /// </summary>
         public string Phone {
             get => this.phone;
             set {
                 //if (!String.IsNullOrWhiteSpace(value)) {
-                this.phone = value;
+                    this.phone = value;
                 //}
             }
         }
 
+        /// <summary>
+        /// Gets/Sets the Cuil of the customer.
+        /// </summary>
         public string Cuil {
             get => this.cuil;
             set {
@@ -105,15 +111,9 @@ namespace Models {
             }
         }
 
-        public int IdVendor {
-            get => this.idVendor;
-            set {
-                if (value > 0) {
-                    this.idVendor = value;
-                }
-            }
-        }
-
+        /// <summary>
+        /// Gets/Sets the BussinessName of the customer.
+        /// </summary>
         public string BussinessName {
             get => this.bussinessName;
             set {
@@ -123,6 +123,9 @@ namespace Models {
             }
         }
 
+        /// <summary>
+        /// Gets/Sets the BussinessType of the customer.
+        /// </summary>
         public BussinessType BussinessType {
             get => this.bussinessType;
             set {
@@ -132,6 +135,9 @@ namespace Models {
             }
         }
 
+        /// <summary>
+        /// Gets/Sets the BussinessAddress of the customer.
+        /// </summary>
         public string BussinessAddress {
             get => this.bussinessAddress;
             set {
@@ -141,11 +147,26 @@ namespace Models {
             }
         }
 
+        /// <summary>
+        /// Gets/Sets the City of the customer.
+        /// </summary>
         public string City {
             get => this.city;
             set {
                 if (!String.IsNullOrWhiteSpace(value)) {
                     this.city = value;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets/Sets the IdVendor of the customer.
+        /// </summary>
+        public int IdVendor {
+            get => this.idVendor;
+            set {
+                if (value > 0) {
+                    this.idVendor = value;
                 }
             }
         }

@@ -50,7 +50,7 @@ namespace Account_Control {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void frmAddPayment_Load(object sender, EventArgs e) {
-            customers = ConnectionDAO.ReadAllCustomers();
+            customers = daoManager.ReadAllCustomers();
             cmbCustomer.DataSource = customers;
         }
 
