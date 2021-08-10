@@ -31,6 +31,8 @@ namespace Models {
 
         private short workItemID;
         private string customerName;
+        private string customerSurname;
+        private string customerBussiness;
         private DateTime workItemDate;
         private float workItemAmount;
         private short workItemIdCustomer;
@@ -106,6 +108,30 @@ namespace Models {
             set {
                 if (!String.IsNullOrWhiteSpace(value)) {
                     this.customerName = value;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets/Sets: the Customer's Surname of the WorkItem.
+        /// </summary>
+        public string CustomerSurname {
+            get => this.customerSurname;
+            set {
+                if (!String.IsNullOrWhiteSpace(value)) {
+                    this.customerSurname = value;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets/Sets: the Customer's Bussiness of the WorkItem.
+        /// </summary>
+        public string CustomerBussiness {
+            get => this.customerBussiness;
+            set {
+                if (!String.IsNullOrWhiteSpace(value)) {
+                    this.customerBussiness = value;
                 }
             }
         }

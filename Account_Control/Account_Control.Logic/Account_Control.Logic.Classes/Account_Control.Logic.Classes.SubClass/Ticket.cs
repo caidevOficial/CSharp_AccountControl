@@ -50,6 +50,12 @@ namespace Models {
             this.CustomerName = customerName;
         }
 
+        public Ticket(short id, DateTime date, string customerName, string customerSurname, string customerBussiness, float amount, short idCustomer)
+            : this(id, date, customerName, amount, idCustomer) {
+            this.CustomerSurname = customerSurname;
+            this.CustomerBussiness = customerBussiness;
+        }
+
         #endregion
 
         #region Properties
