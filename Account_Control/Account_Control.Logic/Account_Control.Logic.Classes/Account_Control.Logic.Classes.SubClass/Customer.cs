@@ -94,7 +94,7 @@ namespace Models {
             get => this.phone;
             set {
                 //if (!String.IsNullOrWhiteSpace(value)) {
-                    this.phone = value;
+                this.phone = value;
                 //}
             }
         }

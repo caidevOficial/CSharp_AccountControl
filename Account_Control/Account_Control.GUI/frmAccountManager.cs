@@ -23,13 +23,7 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using DAOLayer;
 using Models;
@@ -37,13 +31,10 @@ using Models;
 namespace Account_Control {
     public partial class frmAccountManager : Form {
 
-        private ConnectionDAO daoManager;
+        private readonly ConnectionDAO daoManager;
         private Form newForm;
         private FormType type;
         private Color formColor;
-        private const string CUSTOMERS = "Cliente";
-        private const string TICKETS = "Remito";
-        private const string PAYMENTS = "Pago";
 
         public frmAccountManager() {
             InitializeComponent();
@@ -98,13 +89,11 @@ namespace Account_Control {
         /// </summary>
         private void SetTheme() {
             this.SetButtonsColors(this.FormColor);
-            if (this.TypeOfForm == FormType.Customer) {
-                this.SetCustomerTheme();
-            } else if (this.TypeOfForm == FormType.Ticket) {
-                this.SetTicketTheme();
-            } else {
-                this.SetPaymentTheme();
-            }
+            this.Text = $"{this.type.TranslateType()}s";
+            this.btnNewItem.Text = $"Nuevo {this.type.TranslateType()}";
+            this.btnViewItems.Text = $"Ver {this.type.TranslateType()}s";
+            this.btnDeleteItem.Text = $"Borrar {this.type.TranslateType()}";
+            this.btnUpdateItem.Text = $"Editar {this.type.TranslateType()}";
         }
 
         /// <summary>
@@ -116,33 +105,10 @@ namespace Account_Control {
             this.btnNewItem.IconColor = color;
             this.btnViewItems.ForeColor = color;
             this.btnViewItems.IconColor = color;
-        }
-
-        /// <summary>
-        /// Sets the color pack of the ticket's theme.
-        /// </summary>
-        private void SetTicketTheme() {
-            this.Text = "Remitos";
-            this.btnNewItem.Text = $"Nuevo {TICKETS}";
-            this.btnViewItems.Text = $"Ver {TICKETS}s";
-        }
-
-        /// <summary>
-        /// Sets the color pack of the payment's theme.
-        /// </summary>
-        private void SetPaymentTheme() {
-            this.Text = "Pagos";
-            this.btnNewItem.Text = $"Nuevo {PAYMENTS}";
-            this.btnViewItems.Text = $"Ver {PAYMENTS}s";
-        }
-
-        /// <summary>
-        /// Sets the color pack of the customer's theme.
-        /// </summary>
-        private void SetCustomerTheme() {
-            this.Text = "Clientes";
-            this.btnNewItem.Text = $"Nuevo {CUSTOMERS}";
-            this.btnViewItems.Text = $"Ver {CUSTOMERS}s";
+            this.btnDeleteItem.ForeColor = color;
+            this.btnDeleteItem.IconColor = color;
+            this.btnUpdateItem.ForeColor = color;
+            this.btnUpdateItem.IconColor = color;
         }
 
         /// <summary>
@@ -152,7 +118,7 @@ namespace Account_Control {
         /// <param name="e"></param>
         private void btnNewItem_Click(object sender, EventArgs e) {
             if (this.TypeOfForm == FormType.Customer) {
-                this.newForm = new frmAddCustomer();
+                this.newForm = new frmAddCustomer(FormType.Create);
             } else if (this.TypeOfForm == FormType.Ticket) {
                 this.newForm = new frmAddTicket();
             } else {
@@ -165,17 +131,24 @@ namespace Account_Control {
         }
 
         /// <summary>
+        /// Updates the view of the DataGrid.
+        /// </summary>
+        /// <param name="type">Type of form to show.</param>
+        private void UpdateDataGrid(FormType type) {
+            if (type == FormType.Customer) {
+                this.ViewCustomers();
+            } else {
+                this.ViewPaymentsOrTickets(this.TypeOfForm);
+            }
+        }
+
+        /// <summary>
         /// EventHandler of button View Items.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnViewItems_Click(object sender, EventArgs e) {
-            if (this.TypeOfForm == FormType.Customer) {
-                //TODO: Implements for Customer.
-                this.ViewCustomers();
-            } else {
-                this.ViewPaymentsOrTickets(this.TypeOfForm);
-            }
+            this.UpdateDataGrid(this.TypeOfForm);
         }
 
         /// <summary>
@@ -215,6 +188,64 @@ namespace Account_Control {
             this.dgvItems.Columns["BussinessAddress"].HeaderText = "Dirección";
             this.dgvItems.Columns["City"].HeaderText = "Ciudad";
             this.dgvItems.Columns["IdVendor"].HeaderText = "Vendedor";
+        }
+
+        /// <summary>
+        /// EventHandler of button Delete Items.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnDeleteItem_Click(object sender, EventArgs e) {
+            bool success = false;
+            try {
+                if (!(this.dgvItems is null) && !(this.dgvItems.CurrentRow.DataBoundItem is null)) {
+                    if (type == FormType.Customer) {
+                        if (MessageBox.Show("Al borrar un cliente, también se borraran remitos y pagos asociados a el. ¿Desea Continuar?", "Advertencia", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes) {
+                            Customer newCustomer = this.dgvItems.CurrentRow.DataBoundItem as Customer;
+                            success = this.daoManager.DeleteCustomer(newCustomer);
+                        }
+                    } else {
+                        if (type == FormType.Payment) {
+                            Payment newPayment = this.dgvItems.CurrentRow.DataBoundItem as Payment;
+                            success = this.daoManager.DeletePayment(newPayment);
+                        } else {
+                            Ticket newTicket = this.dgvItems.CurrentRow.DataBoundItem as Ticket;
+                            success = this.daoManager.DeleteTicket(newTicket);
+                        }
+                    }
+                }
+
+                if (success) {
+                    MessageBox.Show($"{this.type.TranslateType()} Borrado con Exito!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                this.UpdateDataGrid(this.TypeOfForm);
+            } catch (Exception exe) {
+                MessageBox.Show($"Excepcion: {exe.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// EventHandler of button Update Items.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnUpdateItem_Click(object sender, EventArgs e) {
+            try {
+                if (!(this.dgvItems is null) && !(this.dgvItems.CurrentRow.DataBoundItem is null)) {
+                    if (this.TypeOfForm == FormType.Customer) {
+                        this.newForm = new frmAddCustomer((Customer)this.dgvItems.CurrentRow.DataBoundItem, FormType.Update);
+                    } else {
+
+                    }
+
+                    if (!(newForm is null)) {
+                        newForm.ShowDialog();
+                    }
+                    this.UpdateDataGrid(this.TypeOfForm);
+                }
+            } catch (Exception exe) {
+                MessageBox.Show($"Excepcion: {exe.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

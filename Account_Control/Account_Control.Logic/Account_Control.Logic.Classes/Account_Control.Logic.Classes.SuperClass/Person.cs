@@ -95,7 +95,7 @@ namespace Models {
                 if (!String.IsNullOrWhiteSpace(value)) {
                     this.surname = value;
                 } else {
-                    this.name = "Sin Apellido";
+                    this.surname = "Sin Apellido";
                 }
             }
         }

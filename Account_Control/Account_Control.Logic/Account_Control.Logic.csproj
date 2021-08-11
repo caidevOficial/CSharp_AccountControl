@@ -53,6 +53,7 @@
     <Compile Include="Account_Control.Logic.Classes\Account_Control.Logic.Classes.SuperClass\Person.cs" />
     <Compile Include="Account_Control.Logic.Classes\Account_Control.Logic.Classes.SuperClass\WorkItem.cs" />
     <Compile Include="Account_Control.Logic.Classes\Account_Control.Logic.Classes.SubClass\Ticket.cs" />
+    <Compile Include="Account_Control.Logic.Enums\FormTypeExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

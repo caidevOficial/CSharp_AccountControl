@@ -43,8 +43,11 @@ namespace Models {
 
     public enum FormType {
         Customer,
+        Create,
+        Delete,
+        Payment,
         Ticket,
-        Payment
+        Update
     }
 
     #endregion

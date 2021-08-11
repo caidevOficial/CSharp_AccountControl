@@ -32,10 +32,10 @@ namespace Account_Control {
     public partial class frmAccountControl : Form {
 
         private Form activeForm;
-        private Panel leftBorderBtn;
+        private readonly Panel leftBorderBtn;
         private IconButton currentBtn;
         private static Color lastColorSelected = Color.RoyalBlue;
-        private const string version = "V2.1.3";
+        private const string version = "V2.1.4";
         private const string author = "By FacuFalcone";
 
         /// <summary>
@@ -49,8 +49,9 @@ namespace Account_Control {
 
         public frmAccountControl() {
             this.InitializeComponent();
-            this.leftBorderBtn = new Panel();
-            this.leftBorderBtn.Size = new Size(7, 90);
+            this.leftBorderBtn = new Panel {
+                Size = new Size(7, 90)
+            };
             this.activeForm = null;
         }
 

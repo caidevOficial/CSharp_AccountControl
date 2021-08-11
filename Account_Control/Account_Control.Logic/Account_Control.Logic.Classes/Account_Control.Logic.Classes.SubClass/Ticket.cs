@@ -46,7 +46,7 @@ namespace Models {
             : base(date, id, amount, idCustomer) { }
 
         public Ticket(short id, DateTime date, string customerName, float amount, short idCustomer)
-            :this(id, date, amount, idCustomer) {
+            : this(id, date, amount, idCustomer) {
             this.CustomerName = customerName;
         }
 

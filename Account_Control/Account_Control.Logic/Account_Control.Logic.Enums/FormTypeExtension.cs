@@ -22,16 +22,25 @@
  * SOFTWARE.
  */
 
-using System;
-using System.Collections.Generic;
-using Models;
+namespace Models {
+    public static class FormTypeExtension {
 
-namespace DAOLayer {
-    public interface IDAOCRUD<T> {
-        bool CreateObject(T myObject);
-        bool DeleteItem(int idCustomer, FormType TableName);
-        List<T> ReadAllObjects();
-        List<T> ReadAllObjectsByCustomer(short idCustomer);
-        List<T> ReadAllObjectsByDate(DateTime paymentDate);
+        /// <summary>
+        /// Translate the type from English to Spanish.
+        /// </summary>
+        /// <param name="type">Type to translate.</param>
+        /// <returns>The type in Spanish.</returns>
+        public static string TranslateType(this FormType type) {
+            string typeTranslated = "none";
+            if (type == FormType.Customer) {
+                typeTranslated = "Cliente";
+            } else if (type == FormType.Ticket) {
+                typeTranslated = "Remito";
+            } else {
+                typeTranslated = "Pago";
+            }
+
+            return typeTranslated;
+        }
     }
 }

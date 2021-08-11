@@ -26,6 +26,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Text;
 using Models;
 
 namespace DAOLayer {
@@ -131,8 +132,51 @@ namespace DAOLayer {
             return success;
         }
 
-        public static void DeleteTicket() {
+        /// <summary>
+        /// Deletes an item from the DB, its used to delete a Ticket.
+        /// </summary>
+        /// <param name="myObject">Ticket to be deleted.</param>
+        /// <returns>True if can delete an item, false otherwise.</returns>
+        public bool DeleteTicket(Ticket myObject) {
+            bool success = false;
+            try {
+                if (!(myObject is null)) {
+                    ConnectionDAO.MyConection.Open();
+                    ConnectionDAO.MyCommand.CommandText = $"DELETE FROM Tickets WHERE id=@id;";
+                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@id", myObject.WorkItemID);
+                    int rows = ConnectionDAO.MyCommand.ExecuteNonQuery();
+                    success = true;
+                }
+            } catch (Exception ex) {
+                throw new Exception($"Error {DELETE_VERB} ticket ID: {myObject.WorkItemID}", ex);
+            } finally {
+                ConnectionDAO.MyCommand.Parameters.Clear();
+                ConnectionDAO.MyConection.Close();
+            }
+            return success;
+        }
 
+        /// <summary>
+        /// Deletes an item from the DB, its used to delete a ticket or a payment.
+        /// </summary>
+        /// <param name="idCustomer">ID of the customer associated to the item.</param>
+        /// <param name="tableName">Name of the table to delete the items.</param>
+        /// <returns>True if can delete an item, false otherwise.</returns>
+        public bool DeleteItem(int idCustomer, FormType tableName) {
+            bool success = false;
+            try {
+                if (idCustomer > 0) {
+                    ConnectionDAO.MyCommand.CommandText = $"DELETE FROM {tableName.ToString()}s WHERE id_customer=@id_customer;";
+                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@id_customer", idCustomer);
+                    int rows = ConnectionDAO.MyCommand.ExecuteNonQuery();
+                    success = true;
+                }
+            } catch (Exception ex) {
+                throw new Exception($"Error {DELETE_VERB} {tableName.ToString()}s", ex);
+            } finally {
+                ConnectionDAO.MyCommand.Parameters.Clear();
+            }
+            return success;
         }
 
         /// <summary>
@@ -451,18 +495,28 @@ namespace DAOLayer {
             }
         }
 
-        public static void DeletePayment(short idPayment) {
+        /// <summary>
+        /// Deletes an item from the DB, its used to delete a Payment.
+        /// </summary>
+        /// <param name="myObject">Payment to be deleted.</param>
+        /// <returns>True if can delete an item, false otherwise.</returns>
+        public bool DeletePayment(Payment myObject) {
+            bool success = false;
             try {
-                ConnectionDAO.MyConection.Open();
-                ConnectionDAO.MyCommand.CommandText = $"DELETE FROM Payments WHERE id=@id;";
-                ConnectionDAO.MyCommand.Parameters.AddWithValue("@id", idPayment);
-                int rows = ConnectionDAO.MyCommand.ExecuteNonQuery();
-            } catch (Exception e) {
-                throw new Exception($"Error {DELETE_VERB} payment ID: {idPayment}", e);
+                if (!(myObject is null)) {
+                    ConnectionDAO.MyConection.Open();
+                    ConnectionDAO.MyCommand.CommandText = $"DELETE FROM Payments WHERE id=@id;";
+                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@id", myObject.WorkItemID);
+                    int rows = ConnectionDAO.MyCommand.ExecuteNonQuery();
+                    success = true;
+                }
+            } catch (Exception ex) {
+                throw new Exception($"Error {DELETE_VERB} Payment ID: {myObject.WorkItemID}", ex);
             } finally {
                 ConnectionDAO.MyCommand.Parameters.Clear();
                 ConnectionDAO.MyConection.Close();
             }
+            return success;
         }
 
         #endregion
@@ -527,12 +581,67 @@ namespace DAOLayer {
             return customers;
         }
 
-        public static void UpdateCustomer() {
-
+        /// <summary>
+        /// Updates a customer from the DB.
+        /// </summary>
+        /// <param name="myObject">Customer to update</param>
+        /// <returns>True if can update, false if wasn't.</returns>
+        public bool UpdateCustomer(Customer myObject) {
+            bool success = false;
+            StringBuilder query = new StringBuilder();
+            query.Append($"UPDATE Customer SET name = @Name, surname = @Surname, phone = @Phone, cuil = @Cuil, ");
+            query.Append("bussiness_name = @Bname, bussiness_type = @Btype, bussiness_address = @Baddress, city = @City, id_vendor = @IDV WHERE id = @id;");
+            try {
+                if (!(myObject is null)) {
+                    ConnectionDAO.MyConection.Open();
+                    ConnectionDAO.MyCommand.CommandText = query.ToString();
+                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@id", myObject.ID);
+                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@Name", myObject.Name);
+                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@Surname", myObject.Surname);
+                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@Phone", myObject.Phone);
+                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@Cuil", myObject.Cuil);
+                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@Bname", myObject.BussinessName);
+                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@Btype", myObject.BussinessType.ToString());
+                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@Baddress", myObject.BussinessAddress);
+                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@City", myObject.City);
+                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@IDV", myObject.IdVendor);
+                    int rows = ConnectionDAO.MyCommand.ExecuteNonQuery();
+                    success = true;
+                }
+            } catch (Exception ex) {
+                throw new Exception($"Error {UPDATE_VERB} Customer ID: {myObject.ID}", ex);
+            } finally {
+                ConnectionDAO.MyCommand.Parameters.Clear();
+                ConnectionDAO.MyConection.Close();
+            }
+            return success;
         }
 
-        public static void DeleteCustomer() {
-
+        /// <summary>
+        /// Deletes an item from the DB, its used to delete a Customer and payments & tickets associated.
+        /// </summary>
+        /// <param name="myObject">Payment to be deleted.</param>
+        /// <returns>True if can delete an item, false otherwise.</returns>
+        public bool DeleteCustomer(Customer myObject) {
+            bool success = false;
+            try {
+                if (!(myObject is null)) {
+                    ConnectionDAO.MyConection.Open();
+                    if (this.DeleteItem(myObject.ID, FormType.Ticket) &&
+                    this.DeleteItem(myObject.ID, FormType.Payment)) {
+                        ConnectionDAO.MyCommand.CommandText = $"DELETE FROM {myObject.GetType().Name} WHERE id=@id;";
+                        ConnectionDAO.MyCommand.Parameters.AddWithValue("@id", myObject.ID);
+                        int rows = ConnectionDAO.MyCommand.ExecuteNonQuery();
+                        success = true;
+                    }
+                }
+            } catch (Exception ex) {
+                throw new Exception($"Error {DELETE_VERB} Customer ID: {myObject.ID}", ex);
+            } finally {
+                ConnectionDAO.MyCommand.Parameters.Clear();
+                ConnectionDAO.MyConection.Close();
+            }
+            return success;
         }
 
         #endregion
