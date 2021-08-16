@@ -22,27 +22,13 @@
  * SOFTWARE.
  */
 
+using System;
+
 namespace Models {
-    public static class FormTypeExtension {
+    public sealed class SupplierPayment : Payment {
 
-        /// <summary>
-        /// Translate the type from English to Spanish.
-        /// </summary>
-        /// <param name="type">Type to translate.</param>
-        /// <returns>The type in Spanish.</returns>
-        public static string TranslateType(this FormType type) {
-            string typeTranslated = "none";
-            if (type == FormType.Customer) {
-                typeTranslated = "Cliente";
-            } else if (type == FormType.Ticket) {
-                typeTranslated = "Remito";
-            } else if (type == FormType.Supplier) {
-                typeTranslated = "Proveedor";
-            } else {
-                typeTranslated = "Pago";
-            }
+        public SupplierPayment(short id, DateTime date, string customerName, string customerSurname, string customerBussiness, float amount, short idCustomer)
+            : base(id, date, customerName, customerSurname, customerBussiness, amount, idCustomer) { }
 
-            return typeTranslated;
-        }
     }
 }

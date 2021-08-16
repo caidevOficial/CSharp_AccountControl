@@ -28,7 +28,7 @@ using Models;
 
 namespace DAOLayer {
     public interface IDAOCRUD<T> {
-        bool CreateObject(T myObject);
+        bool CreateObject(T myObject, string tableName);
         bool DeleteItem(int idCustomer, FormType TableName);
         List<T> ReadAllObjects();
         List<T> ReadAllObjectsByCustomer(short idCustomer);

@@ -54,9 +54,11 @@ namespace DAOLayer {
             if (typeEntity is EntityType.Customer) {
                 success = this.CreateCustomer((Customer)workItem);
             } else if (typeEntity is EntityType.Ticket) {
-                success = ((IDAOCRUD<Ticket>)this).CreateObject((Ticket)workItem);
+                success = ((IDAOCRUD<Ticket>)this).CreateObject((Ticket)workItem, "Tickets");
+            } else if (typeEntity is EntityType.Supplier) {
+                success = this.CreateSupplier((Supplier)workItem);
             } else {
-                success = this.CreateObject((Payment)workItem);
+                success = this.CreateObject((Payment)workItem, "Payments");
             }
 
             return success;
@@ -180,16 +182,16 @@ namespace DAOLayer {
         }
 
         /// <summary>
-        /// Creates a ticket in the DB.
+        /// Creates a ticket (Customer or Supplier) in the DB.
         /// </summary>
         /// <param name="myObject">Ticket to be inserted into the db.</param>
-        public bool CreateObject(Ticket myObject) {
+        public bool CreateObject(Ticket myObject, string tableName) {
             bool success = false;
             string objectName = myObject.GetType().Name;
             try {
                 if (!(myObject is null)) {
                     ConnectionDAO.MyConection.Open();
-                    ConnectionDAO.MyCommand.CommandText = $"INSERT INTO Tickets Values(@Date, @id_Customer, @Amount);";
+                    ConnectionDAO.MyCommand.CommandText = $"INSERT INTO {tableName} Values(@Date, @id_Customer, @Amount);";
                     ConnectionDAO.MyCommand.Parameters.AddWithValue("@Date", myObject.WorkItemDate);
                     ConnectionDAO.MyCommand.Parameters.AddWithValue("@id_Customer", myObject.WorkItemIDCustomer);
                     ConnectionDAO.MyCommand.Parameters.AddWithValue("@Amount", Math.Round(myObject.WorkItemAmount, 2));
@@ -303,13 +305,13 @@ namespace DAOLayer {
         /// Creates a Payment in the DB.
         /// </summary>
         /// <param name="myObject">Payment to be inserted into the db.</param>
-        public bool CreateObject(Payment myObject) {
+        public bool CreateObject(Payment myObject, string tableName) {
             bool success = false;
             string objectName = myObject.GetType().Name;
             try {
                 if (!(myObject is null)) {
                     ConnectionDAO.MyConection.Open();
-                    ConnectionDAO.MyCommand.CommandText = $"INSERT INTO Payments Values(@Date,@IdCustomer,@Amount);";
+                    ConnectionDAO.MyCommand.CommandText = $"INSERT INTO {tableName} Values(@Date,@IdCustomer,@Amount);";
                     ConnectionDAO.MyCommand.Parameters.AddWithValue("@Date", myObject.WorkItemDate);
                     ConnectionDAO.MyCommand.Parameters.AddWithValue("@Amount", Math.Round(myObject.WorkItemAmount, 2));
                     ConnectionDAO.MyCommand.Parameters.AddWithValue("@IdCustomer", myObject.WorkItemIDCustomer);
@@ -475,12 +477,16 @@ namespace DAOLayer {
             return payments;
         }
 
-        public static void UpdatePayment(Payment payment) {
+        /// <summary>
+        /// Updates a Payment (Customer or Supplier).
+        /// </summary>
+        /// <param name="payment">Payment to update.</param>
+        public void UpdatePayment(Payment payment, string tableName) {
             string objectName = payment.GetType().Name;
             try {
                 ConnectionDAO.MyConection.Open();
                 if (!(payment is null)) {
-                    ConnectionDAO.MyCommand.CommandText = $"UPDATE Payments SET Date = @Date, Amount = @Amount, Id_Customer = @Id_Customer WHERE id = @id;";
+                    ConnectionDAO.MyCommand.CommandText = $"UPDATE {tableName} SET Date = @Date, Amount = @Amount, Id_Customer = @Id_Customer WHERE id = @id;";
                     ConnectionDAO.MyCommand.Parameters.AddWithValue("@Date", payment.WorkItemDate);
                     ConnectionDAO.MyCommand.Parameters.AddWithValue("@Amount", payment.WorkItemAmount);
                     ConnectionDAO.MyCommand.Parameters.AddWithValue("@Id_Customer", payment.WorkItemIDCustomer);
@@ -533,7 +539,7 @@ namespace DAOLayer {
             try {
                 ConnectionDAO.MyConection.Open();
                 if (!(customer is null)) {
-                    ConnectionDAO.MyCommand.CommandText = $"INSERT INTO Customer Values(@Name, @Surname, @Phone, @Cuil, @Bussiness_Name, @Bussiness_Type, @Bussiness_Address, @City, @Id_Vendor);";
+                    ConnectionDAO.MyCommand.CommandText = $"INSERT INTO Customers Values(@Name, @Surname, @Phone, @Cuil, @Bussiness_Name, @Bussiness_Type, @Bussiness_Address, @City, @Id_Vendor);";
                     ConnectionDAO.MyCommand.Parameters.AddWithValue("@Name", customer.Name);
                     ConnectionDAO.MyCommand.Parameters.AddWithValue("@Surname", customer.Surname);
                     ConnectionDAO.MyCommand.Parameters.AddWithValue("@Phone", customer.Phone);
@@ -561,7 +567,7 @@ namespace DAOLayer {
         public List<Customer> ReadAllCustomers() {
             List<Customer> customers = new List<Customer>();
             Customer actualCustomer;
-            ConnectionDAO.MyCommand.CommandText = "Select * from Customer";
+            ConnectionDAO.MyCommand.CommandText = "Select * from Customers";
             ConnectionDAO.MyConection.Open();
             SqlDataReader myReader = ConnectionDAO.MyCommand.ExecuteReader();
             DataTable myDT = new DataTable();
@@ -589,7 +595,7 @@ namespace DAOLayer {
         public bool UpdateCustomer(Customer myObject) {
             bool success = false;
             StringBuilder query = new StringBuilder();
-            query.Append($"UPDATE Customer SET name = @Name, surname = @Surname, phone = @Phone, cuil = @Cuil, ");
+            query.Append($"UPDATE {myObject.GetType().Name}s SET name = @Name, surname = @Surname, phone = @Phone, cuil = @Cuil, ");
             query.Append("bussiness_name = @Bname, bussiness_type = @Btype, bussiness_address = @Baddress, city = @City, id_vendor = @IDV WHERE id = @id;");
             try {
                 if (!(myObject is null)) {
@@ -629,7 +635,7 @@ namespace DAOLayer {
                     ConnectionDAO.MyConection.Open();
                     if (this.DeleteItem(myObject.ID, FormType.Ticket) &&
                     this.DeleteItem(myObject.ID, FormType.Payment)) {
-                        ConnectionDAO.MyCommand.CommandText = $"DELETE FROM {myObject.GetType().Name} WHERE id=@id;";
+                        ConnectionDAO.MyCommand.CommandText = $"DELETE FROM {myObject.GetType().Name}s WHERE id=@id;";
                         ConnectionDAO.MyCommand.Parameters.AddWithValue("@id", myObject.ID);
                         int rows = ConnectionDAO.MyCommand.ExecuteNonQuery();
                         success = true;
@@ -656,7 +662,7 @@ namespace DAOLayer {
 
             List<Vendor> vendors = new List<Vendor>();
             Vendor actualVendor;
-            ConnectionDAO.MyCommand.CommandText = "Select * from Vendor";
+            ConnectionDAO.MyCommand.CommandText = "Select * from Vendors";
             ConnectionDAO.MyConection.Open();
             SqlDataReader myReader = ConnectionDAO.MyCommand.ExecuteReader();
             DataTable myDT = new DataTable();
@@ -673,6 +679,125 @@ namespace DAOLayer {
             }
 
             return vendors;
+        }
+
+        #endregion
+
+        #region Supplier_Related
+
+        /// <summary>
+        /// Creates a Customer in the DB.
+        /// </summary>
+        /// <param name="customer">Customer to be inserted into the db.</param>
+        private bool CreateSupplier(Supplier supplier) {
+            bool success = false;
+            string objectName = supplier.GetType().Name;
+            try {
+                ConnectionDAO.MyConection.Open();
+                if (!(supplier is null)) {
+                    ConnectionDAO.MyCommand.CommandText = $"INSERT INTO Suppliers Values(@Name, @Surname, @Phone, @Cuil, @Bussiness_Name, @Bussiness_Address, @City, @Id_Vendor);";
+                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@Name", supplier.Name);
+                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@Surname", supplier.Surname);
+                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@Phone", supplier.Phone);
+                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@Cuil", supplier.Cuil);
+                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@Bussiness_Name", supplier.BussinessName);
+                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@Bussiness_Address", supplier.BussinessAddress);
+                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@City", supplier.City);
+                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@Id_Vendor", supplier.IdVendor);
+                    int rows = ConnectionDAO.MyCommand.ExecuteNonQuery();
+                    success = true;
+                } else {
+                    throw new ArgumentNullException();
+                }
+            } catch (Exception ex) {
+                throw new Exception($"Error {CREATE_VERB} {objectName} \"{supplier.Name} {supplier.Surname}\".", ex);
+            } finally {
+                ConnectionDAO.MyCommand.Parameters.Clear();
+                ConnectionDAO.MyConection.Close();
+            }
+
+            return success;
+        }
+
+        public List<Supplier> ReadAllSuppliers() {
+            List<Supplier> suppliers = new List<Supplier>();
+            Supplier actualSupplier;
+            ConnectionDAO.MyCommand.CommandText = $"Select * from Suppliers";
+            ConnectionDAO.MyConection.Open();
+            SqlDataReader myReader = ConnectionDAO.MyCommand.ExecuteReader();
+            DataTable myDT = new DataTable();
+            myDT.Load(myReader);
+            try {
+                foreach (DataRow item in myDT.Rows) {
+                    actualSupplier = new Supplier(Convert.ToInt16(item["id"]), item["name"].ToString(), item["surname"].ToString(), item["phone"].ToString(), item["cuil"].ToString(), item["bussiness_name"].ToString(), item["bussiness_address"].ToString(), item["city"].ToString(), Convert.ToInt16(item["id_vendor"]));
+                    suppliers.Add(actualSupplier);
+                }
+            } catch (Exception ex) {
+                throw new Exception($"Error {READ_VERB} Suppliers.", ex);
+            } finally {
+                ConnectionDAO.MyConection.Close();
+            }
+
+            return suppliers;
+        }
+
+        /// <summary>
+        /// Updates a Supplier from the DB.
+        /// </summary>
+        /// <param name="myObject">Supplier to update</param>
+        /// <returns>True if can update, false if wasn't.</returns>
+        public bool UpdateSupplier(Supplier myObject) {
+            bool success = false;
+            StringBuilder query = new StringBuilder();
+            query.Append($"UPDATE {myObject.GetType().Name}s SET name = @Name, surname = @Surname, phone = @Phone, cuil = @Cuil, ");
+            query.Append("bussiness_name = @Bname, bussiness_address = @Baddress, city = @City, id_vendor = @IDV WHERE id = @id;");
+            try {
+                if (!(myObject is null)) {
+                    ConnectionDAO.MyConection.Open();
+                    ConnectionDAO.MyCommand.CommandText = query.ToString();
+                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@id", myObject.ID);
+                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@Name", myObject.Name);
+                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@Surname", myObject.Surname);
+                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@Phone", myObject.Phone);
+                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@Cuil", myObject.Cuil);
+                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@Bname", myObject.BussinessName);
+                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@Baddress", myObject.BussinessAddress);
+                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@City", myObject.City);
+                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@IDV", myObject.IdVendor);
+                    int rows = ConnectionDAO.MyCommand.ExecuteNonQuery();
+                    success = true;
+                }
+            } catch (Exception ex) {
+                throw new Exception($"Error {UPDATE_VERB} Customer ID: {myObject.ID}", ex);
+            } finally {
+                ConnectionDAO.MyCommand.Parameters.Clear();
+                ConnectionDAO.MyConection.Close();
+            }
+            return success;
+        }
+
+        /// <summary>
+        /// Deletes an item from the DB, its used to delete a Customer and payments & tickets associated.
+        /// </summary>
+        /// <param name="myObject">Payment to be deleted.</param>
+        /// <returns>True if can delete an item, false otherwise.</returns>
+        public bool DeleteSupplier(Supplier myObject) {
+            bool success = false;
+            try {
+                if (!(myObject is null)) {
+                    ConnectionDAO.MyConection.Open();
+                    ConnectionDAO.MyCommand.CommandText = $"DELETE FROM {myObject.GetType().Name}s WHERE id=@id;";
+                    ConnectionDAO.MyCommand.Parameters.AddWithValue("@id", myObject.ID);
+                    int rows = ConnectionDAO.MyCommand.ExecuteNonQuery();
+                    success = true;
+                }
+            } catch (Exception ex) {
+                throw new Exception($"Error {DELETE_VERB} Supplier ID: {myObject.ID}", ex);
+            } finally {
+                ConnectionDAO.MyCommand.Parameters.Clear();
+                ConnectionDAO.MyConection.Close();
+            }
+            return success;
         }
 
         #endregion

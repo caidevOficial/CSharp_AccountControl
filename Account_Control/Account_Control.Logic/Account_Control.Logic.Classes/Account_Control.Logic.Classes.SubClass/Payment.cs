@@ -25,11 +25,7 @@
 using System;
 
 namespace Models {
-    public sealed class Payment : WorkItem {
-
-        #region Attributes
-
-        #endregion
+    public class Payment : WorkItem {
 
         #region Builders
 
@@ -52,10 +48,6 @@ namespace Models {
             this.CustomerSurname = customerSurname;
             this.CustomerBussiness = customerBussiness;
         }
-
-        #endregion
-
-        #region Properties
 
         #endregion
 

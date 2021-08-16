@@ -38,6 +38,7 @@ namespace Models {
         Customer,
         WorkItem,
         Payment,
+        Supplier,
         Ticket
     }
 
@@ -46,6 +47,7 @@ namespace Models {
         Create,
         Delete,
         Payment,
+        Supplier,
         Ticket,
         Update
     }
