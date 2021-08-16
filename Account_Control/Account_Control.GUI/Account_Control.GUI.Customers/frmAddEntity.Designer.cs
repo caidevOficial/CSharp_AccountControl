@@ -1,6 +1,6 @@
 ﻿
 namespace Account_Control {
-    partial class frmAddCustomer {
+    partial class frmAddEntity {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -24,7 +24,7 @@ namespace Account_Control {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAddCustomer));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAddEntity));
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.lblSurname = new System.Windows.Forms.Label();
@@ -44,6 +44,8 @@ namespace Account_Control {
             this.btnCreateCustomer = new FontAwesome.Sharp.IconButton();
             this.lblCity = new System.Windows.Forms.Label();
             this.txtCity = new System.Windows.Forms.TextBox();
+            this.lblID = new System.Windows.Forms.Label();
+            this.txtID = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // txtName
@@ -51,7 +53,7 @@ namespace Account_Control {
             this.txtName.BackColor = System.Drawing.Color.Black;
             this.txtName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtName.ForeColor = System.Drawing.Color.SpringGreen;
-            this.txtName.Location = new System.Drawing.Point(123, 23);
+            this.txtName.Location = new System.Drawing.Point(123, 53);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(181, 26);
             this.txtName.TabIndex = 0;
@@ -60,7 +62,7 @@ namespace Account_Control {
             // 
             this.lblName.AutoSize = true;
             this.lblName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblName.Location = new System.Drawing.Point(35, 26);
+            this.lblName.Location = new System.Drawing.Point(35, 56);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(71, 20);
             this.lblName.TabIndex = 1;
@@ -70,7 +72,7 @@ namespace Account_Control {
             // 
             this.lblSurname.AutoSize = true;
             this.lblSurname.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSurname.Location = new System.Drawing.Point(32, 58);
+            this.lblSurname.Location = new System.Drawing.Point(32, 88);
             this.lblSurname.Name = "lblSurname";
             this.lblSurname.Size = new System.Drawing.Size(73, 20);
             this.lblSurname.TabIndex = 3;
@@ -81,7 +83,7 @@ namespace Account_Control {
             this.txtSurname.BackColor = System.Drawing.Color.Black;
             this.txtSurname.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSurname.ForeColor = System.Drawing.Color.SpringGreen;
-            this.txtSurname.Location = new System.Drawing.Point(123, 55);
+            this.txtSurname.Location = new System.Drawing.Point(123, 85);
             this.txtSurname.Name = "txtSurname";
             this.txtSurname.Size = new System.Drawing.Size(181, 26);
             this.txtSurname.TabIndex = 1;
@@ -90,7 +92,7 @@ namespace Account_Control {
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(29, 90);
+            this.label2.Location = new System.Drawing.Point(29, 120);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(79, 20);
             this.label2.TabIndex = 5;
@@ -101,7 +103,7 @@ namespace Account_Control {
             this.txtPhone.BackColor = System.Drawing.Color.Black;
             this.txtPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPhone.ForeColor = System.Drawing.Color.SpringGreen;
-            this.txtPhone.Location = new System.Drawing.Point(123, 87);
+            this.txtPhone.Location = new System.Drawing.Point(123, 117);
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.Size = new System.Drawing.Size(181, 26);
             this.txtPhone.TabIndex = 2;
@@ -110,7 +112,7 @@ namespace Account_Control {
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(31, 186);
+            this.label3.Location = new System.Drawing.Point(31, 216);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(74, 20);
             this.label3.TabIndex = 11;
@@ -120,7 +122,7 @@ namespace Account_Control {
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(10, 154);
+            this.label4.Location = new System.Drawing.Point(10, 184);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(112, 20);
             this.label4.TabIndex = 9;
@@ -131,7 +133,7 @@ namespace Account_Control {
             this.txtBussinessName.BackColor = System.Drawing.Color.Black;
             this.txtBussinessName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBussinessName.ForeColor = System.Drawing.Color.SpringGreen;
-            this.txtBussinessName.Location = new System.Drawing.Point(123, 151);
+            this.txtBussinessName.Location = new System.Drawing.Point(123, 181);
             this.txtBussinessName.Name = "txtBussinessName";
             this.txtBussinessName.Size = new System.Drawing.Size(181, 26);
             this.txtBussinessName.TabIndex = 4;
@@ -140,7 +142,7 @@ namespace Account_Control {
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(50, 122);
+            this.label5.Location = new System.Drawing.Point(50, 152);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(39, 20);
             this.label5.TabIndex = 7;
@@ -151,7 +153,7 @@ namespace Account_Control {
             this.txtCuil.BackColor = System.Drawing.Color.Black;
             this.txtCuil.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCuil.ForeColor = System.Drawing.Color.SpringGreen;
-            this.txtCuil.Location = new System.Drawing.Point(123, 119);
+            this.txtCuil.Location = new System.Drawing.Point(123, 149);
             this.txtCuil.Name = "txtCuil";
             this.txtCuil.Size = new System.Drawing.Size(181, 26);
             this.txtCuil.TabIndex = 3;
@@ -160,7 +162,7 @@ namespace Account_Control {
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(27, 284);
+            this.label6.Location = new System.Drawing.Point(27, 314);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(87, 20);
             this.label6.TabIndex = 15;
@@ -170,7 +172,7 @@ namespace Account_Control {
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(26, 218);
+            this.label7.Location = new System.Drawing.Point(26, 248);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(84, 20);
             this.label7.TabIndex = 13;
@@ -181,7 +183,7 @@ namespace Account_Control {
             this.txtAddress.BackColor = System.Drawing.Color.Black;
             this.txtAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAddress.ForeColor = System.Drawing.Color.SpringGreen;
-            this.txtAddress.Location = new System.Drawing.Point(123, 215);
+            this.txtAddress.Location = new System.Drawing.Point(123, 245);
             this.txtAddress.Name = "txtAddress";
             this.txtAddress.Size = new System.Drawing.Size(181, 26);
             this.txtAddress.TabIndex = 6;
@@ -192,7 +194,7 @@ namespace Account_Control {
             this.cmbVendor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbVendor.ForeColor = System.Drawing.Color.SpringGreen;
             this.cmbVendor.FormattingEnabled = true;
-            this.cmbVendor.Location = new System.Drawing.Point(123, 281);
+            this.cmbVendor.Location = new System.Drawing.Point(123, 311);
             this.cmbVendor.Name = "cmbVendor";
             this.cmbVendor.Size = new System.Drawing.Size(181, 28);
             this.cmbVendor.TabIndex = 8;
@@ -203,7 +205,7 @@ namespace Account_Control {
             this.cmbBussinessType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbBussinessType.ForeColor = System.Drawing.Color.SpringGreen;
             this.cmbBussinessType.FormattingEnabled = true;
-            this.cmbBussinessType.Location = new System.Drawing.Point(123, 181);
+            this.cmbBussinessType.Location = new System.Drawing.Point(123, 211);
             this.cmbBussinessType.Name = "cmbBussinessType";
             this.cmbBussinessType.Size = new System.Drawing.Size(181, 28);
             this.cmbBussinessType.TabIndex = 5;
@@ -215,7 +217,7 @@ namespace Account_Control {
             this.btnCreateCustomer.IconChar = FontAwesome.Sharp.IconChar.ChevronCircleRight;
             this.btnCreateCustomer.IconColor = System.Drawing.Color.SpringGreen;
             this.btnCreateCustomer.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnCreateCustomer.Location = new System.Drawing.Point(119, 324);
+            this.btnCreateCustomer.Location = new System.Drawing.Point(119, 349);
             this.btnCreateCustomer.Name = "btnCreateCustomer";
             this.btnCreateCustomer.Size = new System.Drawing.Size(185, 68);
             this.btnCreateCustomer.TabIndex = 9;
@@ -228,7 +230,7 @@ namespace Account_Control {
             // 
             this.lblCity.AutoSize = true;
             this.lblCity.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCity.Location = new System.Drawing.Point(35, 250);
+            this.lblCity.Location = new System.Drawing.Point(35, 280);
             this.lblCity.Name = "lblCity";
             this.lblCity.Size = new System.Drawing.Size(65, 20);
             this.lblCity.TabIndex = 18;
@@ -239,10 +241,30 @@ namespace Account_Control {
             this.txtCity.BackColor = System.Drawing.Color.Black;
             this.txtCity.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCity.ForeColor = System.Drawing.Color.SpringGreen;
-            this.txtCity.Location = new System.Drawing.Point(123, 247);
+            this.txtCity.Location = new System.Drawing.Point(123, 277);
             this.txtCity.Name = "txtCity";
             this.txtCity.Size = new System.Drawing.Size(181, 26);
             this.txtCity.TabIndex = 7;
+            // 
+            // lblID
+            // 
+            this.lblID.AutoSize = true;
+            this.lblID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblID.Location = new System.Drawing.Point(61, 24);
+            this.lblID.Name = "lblID";
+            this.lblID.Size = new System.Drawing.Size(28, 20);
+            this.lblID.TabIndex = 20;
+            this.lblID.Text = "ID";
+            // 
+            // txtID
+            // 
+            this.txtID.BackColor = System.Drawing.Color.Black;
+            this.txtID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtID.ForeColor = System.Drawing.Color.SpringGreen;
+            this.txtID.Location = new System.Drawing.Point(123, 21);
+            this.txtID.Name = "txtID";
+            this.txtID.Size = new System.Drawing.Size(181, 26);
+            this.txtID.TabIndex = 19;
             // 
             // frmAddCustomer
             // 
@@ -250,6 +272,8 @@ namespace Account_Control {
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(362, 428);
+            this.Controls.Add(this.lblID);
+            this.Controls.Add(this.txtID);
             this.Controls.Add(this.lblCity);
             this.Controls.Add(this.txtCity);
             this.Controls.Add(this.btnCreateCustomer);
@@ -304,5 +328,7 @@ namespace Account_Control {
         private FontAwesome.Sharp.IconButton btnCreateCustomer;
         private System.Windows.Forms.Label lblCity;
         private System.Windows.Forms.TextBox txtCity;
+        private System.Windows.Forms.Label lblID;
+        private System.Windows.Forms.TextBox txtID;
     }
 }

@@ -45,6 +45,9 @@
     <Compile Include="Account_Control.Logic.Classes\Account_Control.Logic.Classes.DAOLayer\ConnectionDAO.cs" />
     <Compile Include="Account_Control.Logic.Classes\Account_Control.Logic.Classes.DAOLayer\DAOAbstract.cs" />
     <Compile Include="Account_Control.Logic.Classes\Account_Control.Logic.Classes.DAOLayer\IDAOCRUD.cs" />
+    <Compile Include="Account_Control.Logic.Classes\Account_Control.Logic.Classes.SubClass\Supplier.cs" />
+    <Compile Include="Account_Control.Logic.Classes\Account_Control.Logic.Classes.SubClass\SupplierPayment.cs" />
+    <Compile Include="Account_Control.Logic.Classes\Account_Control.Logic.Classes.SubClass\CustomerPayment.cs" />
     <Compile Include="Account_Control.Logic.Classes\Account_Control.Logic.Classes.SubClass\Vendor.cs" />
     <Compile Include="Account_Control.Logic.Enums\BussinessType.cs" />
     <Compile Include="Account_Control.Logic.Classes\Establishment.cs" />
@@ -53,6 +56,7 @@
     <Compile Include="Account_Control.Logic.Classes\Account_Control.Logic.Classes.SuperClass\Person.cs" />
     <Compile Include="Account_Control.Logic.Classes\Account_Control.Logic.Classes.SuperClass\WorkItem.cs" />
     <Compile Include="Account_Control.Logic.Classes\Account_Control.Logic.Classes.SubClass\Ticket.cs" />
+    <Compile Include="Account_Control.Logic.Enums\FormTypeExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
