@@ -75,7 +75,36 @@ GO
 ALTER TABLE
     Customer CHECK CONSTRAINT [FK_Customer_Vendor]
 GO
-    -- TABLE: PAYMENTS
+     -- TABLE: SUPPLIER
+    CREATE TABLE Supplier (
+        id int IDENTITY(1, 1) NOT NULL,
+        name varchar(50) NULL,
+        surname varchar(50) NULL,
+        phone varchar(50) NULL,
+        cuil varchar(50) NULL,
+        bussiness_name varchar(50) NULL,
+        bussiness_address varchar(50) NULL,
+        city varchar(50) NULL,
+        id_vendor int NOT NULL,
+        CONSTRAINT [PK_Supplier] PRIMARY KEY CLUSTERED ([id] ASC) WITH (
+            PAD_INDEX = OFF,
+            STATISTICS_NORECOMPUTE = OFF,
+            IGNORE_DUP_KEY = OFF,
+            ALLOW_ROW_LOCKS = ON,
+            ALLOW_PAGE_LOCKS = ON,
+            OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF
+        ) ON [PRIMARY]
+    ) ON [PRIMARY]
+GO
+ALTER TABLE
+    Supplier WITH CHECK
+ADD
+    CONSTRAINT [FK_Supplier_Vendor] FOREIGN KEY([id_vendor]) REFERENCES Vendor ([id])
+GO
+ALTER TABLE
+    Supplier CHECK CONSTRAINT [FK_Supplier_Vendor]
+GO
+   -- TABLE: PAYMENTS
     CREATE TABLE Payments (
         id int IDENTITY(1, 1) NOT NULL,
         Date datetime NOT NULL,
