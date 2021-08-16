@@ -29,7 +29,7 @@ GO
     USE AccountControl
 GO
     -- TABLE: VENDOR
-    CREATE TABLE Vendor (
+    CREATE TABLE Vendors (
         id int IDENTITY(1, 1) NOT NULL,
         name varchar(50) NULL,
         surname varchar(50) NULL,
@@ -46,7 +46,7 @@ GO
     ) ON [PRIMARY]
 GO
     -- TABLE: CUSTOMER
-    CREATE TABLE Customer (
+    CREATE TABLE Customers (
         id int IDENTITY(1, 1) NOT NULL,
         name varchar(50) NULL,
         surname varchar(50) NULL,
@@ -68,15 +68,15 @@ GO
     ) ON [PRIMARY]
 GO
 ALTER TABLE
-    Customer WITH CHECK
+    Customers WITH CHECK
 ADD
-    CONSTRAINT [FK_Customer_Vendor] FOREIGN KEY([id_vendor]) REFERENCES Vendor ([id])
+    CONSTRAINT [FK_Customer_Vendor] FOREIGN KEY([id_vendor]) REFERENCES Vendors ([id])
 GO
 ALTER TABLE
-    Customer CHECK CONSTRAINT [FK_Customer_Vendor]
+    Customers CHECK CONSTRAINT [FK_Customer_Vendor]
 GO
      -- TABLE: SUPPLIER
-    CREATE TABLE Supplier (
+    CREATE TABLE Suppliers (
         id int IDENTITY(1, 1) NOT NULL,
         name varchar(50) NULL,
         surname varchar(50) NULL,
@@ -97,12 +97,12 @@ GO
     ) ON [PRIMARY]
 GO
 ALTER TABLE
-    Supplier WITH CHECK
+    Suppliers WITH CHECK
 ADD
-    CONSTRAINT [FK_Supplier_Vendor] FOREIGN KEY([id_vendor]) REFERENCES Vendor ([id])
+    CONSTRAINT [FK_Supplier_Vendor] FOREIGN KEY([id_vendor]) REFERENCES Vendors ([id])
 GO
 ALTER TABLE
-    Supplier CHECK CONSTRAINT [FK_Supplier_Vendor]
+    Suppliers CHECK CONSTRAINT [FK_Supplier_Vendor]
 GO
    -- TABLE: PAYMENTS
     CREATE TABLE Payments (
@@ -123,7 +123,7 @@ GO
 ALTER TABLE
     Payments WITH CHECK
 ADD
-    CONSTRAINT [FK_Payments_Customer] FOREIGN KEY([id_customer]) REFERENCES Customer ([id])
+    CONSTRAINT [FK_Payments_Customer] FOREIGN KEY([id_customer]) REFERENCES Customers ([id])
 GO
 ALTER TABLE
     Payments CHECK CONSTRAINT [FK_Payments_Customer]
@@ -147,7 +147,7 @@ GO
 ALTER TABLE
     Tickets WITH CHECK
 ADD
-    CONSTRAINT [FK_Tickets_Customer] FOREIGN KEY([id_customer]) REFERENCES Customer ([id])
+    CONSTRAINT [FK_Tickets_Customer] FOREIGN KEY([id_customer]) REFERENCES Customers ([id])
 GO
 ALTER TABLE
     Tickets CHECK CONSTRAINT [FK_Tickets_Customer]
