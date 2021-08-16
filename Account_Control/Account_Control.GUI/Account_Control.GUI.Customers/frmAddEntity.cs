@@ -28,31 +28,37 @@ using DAOLayer;
 using Models;
 
 namespace Account_Control {
-    public partial class frmAddCustomer : Form {
+    public partial class frmAddEntity : Form {
 
         private Customer myCustomer;
         private readonly ConnectionDAO daoManager;
-        private readonly FormType type;
+        private readonly FormType type1;
 
-        public frmAddCustomer() {
+        public frmAddEntity() {
             InitializeComponent();
             this.myCustomer = new Customer();
             this.daoManager = new ConnectionDAO();
         }
 
-        public frmAddCustomer(FormType type) : this() {
-            this.type = type;
+        public frmAddEntity(FormType type) : this() {
+            this.type1 = type;
         }
 
-        public frmAddCustomer(Customer aCustomer, FormType type) : this(type) {
+        public frmAddEntity(Customer aCustomer, FormType type) : this(type) {
             this.myCustomer = aCustomer;
         }
 
+        /// <summary>
+        /// EventHandler of form load.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void frmAddCustomer_Load(object sender, EventArgs e) {
-            if (this.type == FormType.Create) {
+            if (this.type1 == FormType.Create) {
                 this.btnCreateCustomer.Text = $"Crear Cliente";
-            } else {
                 this.txtID.Enabled = false;
+            } else {
+                this.txtID.Enabled = true;
                 this.CustomerToForm(this.myCustomer);
                 this.btnCreateCustomer.Text = $"Modificar";
             }
@@ -60,6 +66,10 @@ namespace Account_Control {
             cmbVendor.DataSource = this.daoManager.ReadAllVendors();
         }
 
+        /// <summary>
+        /// Gets the input of the form and creates a Customer.
+        /// </summary>
+        /// <returns>An object of Customer's type</returns>
         private Customer FormToCustomer() {
             Customer newCustomer = new Customer();
             if (this.txtID.Enabled) {
@@ -78,6 +88,10 @@ namespace Account_Control {
             return newCustomer;
         }
 
+        /// <summary>
+        /// Gets the data of a Customer and shows in the form.
+        /// </summary>
+        /// <param name="aCustomer">Customer to show its data.</param>
         private void CustomerToForm(Customer aCustomer) {
             this.txtID.Text = aCustomer.ID.ToString();
             this.txtName.Text = aCustomer.Name;
@@ -91,14 +105,19 @@ namespace Account_Control {
             this.cmbVendor.SelectedItem = aCustomer.IdVendor;
         }
 
+        /// <summary>
+        /// EventHandler of Create button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCreateCustomer_Click(object sender, EventArgs e) {
 
-            if (this.type == FormType.Create) {
+            if (this.type1 == FormType.Create) {
                 this.myCustomer = this.FormToCustomer();
                 if (daoManager.Create(this.myCustomer, EntityType.Customer)) {
                     MessageBox.Show("Cliente Creado con exito.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-            } else if (this.type == FormType.Update) {
+            } else if (this.type1 == FormType.Update) {
                 this.myCustomer = this.FormToCustomer();
                 this.myCustomer.ID = short.Parse(this.txtID.Text);
                 if (daoManager.UpdateCustomer(this.myCustomer)) {

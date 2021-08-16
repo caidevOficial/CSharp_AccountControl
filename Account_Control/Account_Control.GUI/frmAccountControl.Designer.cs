@@ -27,6 +27,7 @@ namespace Account_Control {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAccountControl));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnSuppliers = new FontAwesome.Sharp.IconButton();
             this.btnPayments = new FontAwesome.Sharp.IconButton();
             this.btnTickets = new FontAwesome.Sharp.IconButton();
             this.btnCustomers = new FontAwesome.Sharp.IconButton();
@@ -37,9 +38,9 @@ namespace Account_Control {
             this.lblCurrentChildFormTitle = new System.Windows.Forms.Label();
             this.iconCurrentChildForm = new FontAwesome.Sharp.IconPictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.lblVersion = new System.Windows.Forms.Label();
             this.pnlChildForm = new System.Windows.Forms.Panel();
             this.time_DateTime = new System.Windows.Forms.Timer(this.components);
-            this.lblVersion = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
             this.panel2.SuspendLayout();
@@ -49,6 +50,7 @@ namespace Account_Control {
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnSuppliers);
             this.panel1.Controls.Add(this.btnPayments);
             this.panel1.Controls.Add(this.btnTickets);
             this.panel1.Controls.Add(this.btnCustomers);
@@ -59,11 +61,29 @@ namespace Account_Control {
             this.panel1.Size = new System.Drawing.Size(160, 572);
             this.panel1.TabIndex = 0;
             // 
+            // btnSuppliers
+            // 
+            this.btnSuppliers.BackColor = System.Drawing.Color.Black;
+            this.btnSuppliers.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnSuppliers.Font = new System.Drawing.Font("Javanese Text", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSuppliers.ForeColor = System.Drawing.Color.DeepSkyBlue;
+            this.btnSuppliers.IconChar = FontAwesome.Sharp.IconChar.Portrait;
+            this.btnSuppliers.IconColor = System.Drawing.Color.DeepSkyBlue;
+            this.btnSuppliers.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnSuppliers.Location = new System.Drawing.Point(0, 375);
+            this.btnSuppliers.Name = "btnSuppliers";
+            this.btnSuppliers.Size = new System.Drawing.Size(160, 85);
+            this.btnSuppliers.TabIndex = 4;
+            this.btnSuppliers.Text = "Proveedores";
+            this.btnSuppliers.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnSuppliers.UseVisualStyleBackColor = false;
+            this.btnSuppliers.Click += new System.EventHandler(this.btnSuppliers_Click);
+            // 
             // btnPayments
             // 
             this.btnPayments.BackColor = System.Drawing.Color.Black;
             this.btnPayments.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnPayments.Font = new System.Drawing.Font("Javanese Text", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPayments.Font = new System.Drawing.Font("Javanese Text", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPayments.ForeColor = System.Drawing.Color.RoyalBlue;
             this.btnPayments.IconChar = FontAwesome.Sharp.IconChar.MoneyBillAlt;
             this.btnPayments.IconColor = System.Drawing.Color.RoyalBlue;
@@ -73,7 +93,7 @@ namespace Account_Control {
             this.btnPayments.Size = new System.Drawing.Size(160, 85);
             this.btnPayments.TabIndex = 3;
             this.btnPayments.Text = "Pagos";
-            this.btnPayments.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnPayments.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnPayments.UseVisualStyleBackColor = false;
             this.btnPayments.Click += new System.EventHandler(this.btnPayments_Click);
             // 
@@ -81,7 +101,7 @@ namespace Account_Control {
             // 
             this.btnTickets.BackColor = System.Drawing.Color.Black;
             this.btnTickets.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnTickets.Font = new System.Drawing.Font("Javanese Text", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTickets.Font = new System.Drawing.Font("Javanese Text", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTickets.ForeColor = System.Drawing.Color.LimeGreen;
             this.btnTickets.IconChar = FontAwesome.Sharp.IconChar.Truck;
             this.btnTickets.IconColor = System.Drawing.Color.LimeGreen;
@@ -91,7 +111,7 @@ namespace Account_Control {
             this.btnTickets.Size = new System.Drawing.Size(160, 85);
             this.btnTickets.TabIndex = 2;
             this.btnTickets.Text = "Remitos";
-            this.btnTickets.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnTickets.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnTickets.UseVisualStyleBackColor = false;
             this.btnTickets.Click += new System.EventHandler(this.btnTickets_Click);
             // 
@@ -99,7 +119,7 @@ namespace Account_Control {
             // 
             this.btnCustomers.BackColor = System.Drawing.Color.Black;
             this.btnCustomers.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnCustomers.Font = new System.Drawing.Font("Javanese Text", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCustomers.Font = new System.Drawing.Font("Javanese Text", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCustomers.ForeColor = System.Drawing.Color.OrangeRed;
             this.btnCustomers.IconChar = FontAwesome.Sharp.IconChar.Portrait;
             this.btnCustomers.IconColor = System.Drawing.Color.OrangeRed;
@@ -109,7 +129,7 @@ namespace Account_Control {
             this.btnCustomers.Size = new System.Drawing.Size(160, 85);
             this.btnCustomers.TabIndex = 1;
             this.btnCustomers.Text = "Clientes";
-            this.btnCustomers.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnCustomers.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnCustomers.UseVisualStyleBackColor = false;
             this.btnCustomers.Click += new System.EventHandler(this.btnCustomers_Click);
             // 
@@ -197,6 +217,17 @@ namespace Account_Control {
             this.panel3.Size = new System.Drawing.Size(640, 57);
             this.panel3.TabIndex = 2;
             // 
+            // lblVersion
+            // 
+            this.lblVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVersion.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.lblVersion.Location = new System.Drawing.Point(339, 21);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(291, 23);
+            this.lblVersion.TabIndex = 5;
+            this.lblVersion.Text = "Author - Version";
+            this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // pnlChildForm
             // 
             this.pnlChildForm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
@@ -210,17 +241,6 @@ namespace Account_Control {
             // 
             this.time_DateTime.Enabled = true;
             this.time_DateTime.Tick += new System.EventHandler(this.time_DateTime_Tick);
-            // 
-            // lblVersion
-            // 
-            this.lblVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVersion.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.lblVersion.Location = new System.Drawing.Point(339, 21);
-            this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(291, 23);
-            this.lblVersion.TabIndex = 5;
-            this.lblVersion.Text = "Author - Version";
-            this.lblVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // frmAccountControl
             // 
@@ -267,6 +287,7 @@ namespace Account_Control {
         private System.Windows.Forms.Label lblTime;
         private System.Windows.Forms.Label lblDate;
         private System.Windows.Forms.Label lblVersion;
+        private FontAwesome.Sharp.IconButton btnSuppliers;
     }
 }
 

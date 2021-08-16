@@ -118,7 +118,9 @@ namespace Account_Control {
         /// <param name="e"></param>
         private void btnNewItem_Click(object sender, EventArgs e) {
             if (this.TypeOfForm == FormType.Customer) {
-                this.newForm = new frmAddCustomer(FormType.Create);
+                this.newForm = new frmAddEntity(FormType.Create);
+            } else if (this.TypeOfForm == FormType.Supplier) {
+                this.newForm = new frmAddSupplier(FormType.Create);
             } else if (this.TypeOfForm == FormType.Ticket) {
                 this.newForm = new frmAddTicket();
             } else {
@@ -135,8 +137,8 @@ namespace Account_Control {
         /// </summary>
         /// <param name="type">Type of form to show.</param>
         private void UpdateDataGrid(FormType type) {
-            if (type == FormType.Customer) {
-                this.ViewCustomers();
+            if (type == FormType.Customer || type == FormType.Supplier) {
+                this.ViewEntities(type);
             } else {
                 this.ViewPaymentsOrTickets(this.TypeOfForm);
             }
@@ -162,32 +164,41 @@ namespace Account_Control {
                 this.dgvItems.DataSource = ((IDAOCRUD<Ticket>)daoManager).ReadAllObjects();
             }
 
-            this.dgvItems.Columns[0].HeaderText = "ID";
-            this.dgvItems.Columns[1].HeaderText = "Fecha";
-            this.dgvItems.Columns[2].HeaderText = "ID_Cliente";
-            this.dgvItems.Columns[3].HeaderText = "Nombre";
-            this.dgvItems.Columns[4].HeaderText = "Apellido";
-            this.dgvItems.Columns[5].HeaderText = "Razón Social";
-            this.dgvItems.Columns[6].HeaderText = "Monto";
-            this.dgvItems.Columns[6].DefaultCellStyle.Format = "C2";
+            if (this.dgvItems.Columns.Count == 7) {
+                this.dgvItems.Columns[0].HeaderText = "ID";
+                this.dgvItems.Columns[1].HeaderText = "Fecha";
+                this.dgvItems.Columns[2].HeaderText = "ID_Cliente";
+                this.dgvItems.Columns[3].HeaderText = "Nombre";
+                this.dgvItems.Columns[4].HeaderText = "Apellido";
+                this.dgvItems.Columns[5].HeaderText = "Razón Social";
+                this.dgvItems.Columns[6].HeaderText = "Monto";
+                this.dgvItems.Columns[6].DefaultCellStyle.Format = "C2";
+            }
         }
 
         /// <summary>
         /// Reads the table Customer and configure the DGV for the data of these table.
         /// </summary>
-        private void ViewCustomers() {
+        /// <param name="type">Type of the form, to choose the correct table.</param>
+        private void ViewEntities(FormType type) {
             //TODO: Implements the method.
-            this.dgvItems.DataSource = daoManager.ReadAllCustomers();
-            this.dgvItems.Columns["ID"].HeaderText = "ID";
-            this.dgvItems.Columns["Name"].HeaderText = "Nombre";
-            this.dgvItems.Columns["Surname"].HeaderText = "Apellido";
-            this.dgvItems.Columns["Phone"].HeaderText = "Tel";
-            this.dgvItems.Columns["Cuil"].HeaderText = "Cuil";
-            this.dgvItems.Columns["BussinessName"].HeaderText = "Razón Social";
-            this.dgvItems.Columns["BussinessType"].HeaderText = "Tipo";
-            this.dgvItems.Columns["BussinessAddress"].HeaderText = "Dirección";
-            this.dgvItems.Columns["City"].HeaderText = "Ciudad";
-            this.dgvItems.Columns["IdVendor"].HeaderText = "Vendedor";
+            if (this.dgvItems.Columns.Count > 8) {
+                if (type == FormType.Customer) {
+                    this.dgvItems.DataSource = daoManager.ReadAllCustomers();
+                    this.dgvItems.Columns["BussinessType"].HeaderText = "Tipo";
+                } else {
+                    this.dgvItems.DataSource = daoManager.ReadAllSuppliers();
+                }
+                this.dgvItems.Columns["ID"].HeaderText = "ID";
+                this.dgvItems.Columns["Name"].HeaderText = "Nombre";
+                this.dgvItems.Columns["Surname"].HeaderText = "Apellido";
+                this.dgvItems.Columns["Phone"].HeaderText = "Tel";
+                this.dgvItems.Columns["Cuil"].HeaderText = "Cuil";
+                this.dgvItems.Columns["BussinessName"].HeaderText = "Razón Social";
+                this.dgvItems.Columns["BussinessAddress"].HeaderText = "Dirección";
+                this.dgvItems.Columns["City"].HeaderText = "Ciudad";
+                this.dgvItems.Columns["IdVendor"].HeaderText = "Vendedor";
+            }
         }
 
         /// <summary>
@@ -233,10 +244,15 @@ namespace Account_Control {
             try {
                 if (!(this.dgvItems is null) && !(this.dgvItems.CurrentRow.DataBoundItem is null)) {
                     if (this.TypeOfForm == FormType.Customer) {
-                        this.newForm = new frmAddCustomer((Customer)this.dgvItems.CurrentRow.DataBoundItem, FormType.Update);
+                        this.newForm = new frmAddEntity((Customer)this.dgvItems.CurrentRow.DataBoundItem, FormType.Update);
+                    } else if (this.TypeOfForm == FormType.Customer) {
+                        this.newForm = new frmAddSupplier((Supplier)this.dgvItems.CurrentRow.DataBoundItem, FormType.Update);
+                    } else if (this.TypeOfForm == FormType.Ticket) {
+
                     } else {
 
                     }
+
 
                     if (!(newForm is null)) {
                         newForm.ShowDialog();
