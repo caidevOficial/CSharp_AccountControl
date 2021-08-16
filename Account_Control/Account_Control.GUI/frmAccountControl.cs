@@ -32,10 +32,10 @@ namespace Account_Control {
     public partial class frmAccountControl : Form {
 
         private Form activeForm;
-        private Panel leftBorderBtn;
+        private readonly Panel leftBorderBtn;
         private IconButton currentBtn;
         private static Color lastColorSelected = Color.RoyalBlue;
-        private const string version = "V2.1.3";
+        private const string version = "V2.2.0";
         private const string author = "By FacuFalcone";
 
         /// <summary>
@@ -45,12 +45,14 @@ namespace Account_Control {
             public static Color customer = Color.OrangeRed; //ffff4500
             public static Color tickets = Color.LimeGreen;  //ff32cd32
             public static Color payments = Color.RoyalBlue; //ff4169e1
+            public static Color suppliers = Color.DeepSkyBlue; //FF00BFFF 
         }
 
         public frmAccountControl() {
             this.InitializeComponent();
-            this.leftBorderBtn = new Panel();
-            this.leftBorderBtn.Size = new Size(7, 90);
+            this.leftBorderBtn = new Panel {
+                Size = new Size(7, 90)
+            };
             this.activeForm = null;
         }
 
@@ -124,6 +126,11 @@ namespace Account_Control {
             this.OpenChildForm(new frmAccountManager(FormType.Payment, FormColors.payments));
         }
 
+        private void btnSuppliers_Click(object sender, EventArgs e) {
+            this.ActivateButton(sender, FormColors.suppliers);
+            this.OpenChildForm(new frmAccountManager(FormType.Supplier, FormColors.suppliers));
+        }
+
         /// <summary>
         /// Resets the effects in the form.
         /// </summary>
@@ -172,12 +179,14 @@ namespace Account_Control {
                 this.currentBtn.ForeColor = frmAccountControl.lastColorSelected;
                 this.currentBtn.TextAlign = ContentAlignment.MiddleCenter;
                 this.currentBtn.IconColor = frmAccountControl.lastColorSelected;
-                this.currentBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
+                this.currentBtn.TextImageRelation = TextImageRelation.ImageAboveText;
                 this.currentBtn.ImageAlign = ContentAlignment.MiddleCenter;
                 this.lblCurrentChildFormTitle.Text = string.Empty;
             }
         }
 
         #endregion
+
+
     }
 }

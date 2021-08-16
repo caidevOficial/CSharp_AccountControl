@@ -23,15 +23,12 @@
  */
 
 using System;
-using System.Collections.Generic;
-using Models;
 
-namespace DAOLayer {
-    public interface IDAOCRUD<T> {
-        bool CreateObject(T myObject, string tableName);
-        bool DeleteItem(int idCustomer, FormType TableName);
-        List<T> ReadAllObjects();
-        List<T> ReadAllObjectsByCustomer(short idCustomer);
-        List<T> ReadAllObjectsByDate(DateTime paymentDate);
+namespace Models {
+    public sealed class CustomerPayment : Payment {
+
+        public CustomerPayment(short id, DateTime date, string customerName, string customerSurname, string customerBussiness, float amount, short idCustomer)
+            : base(id, date, customerName, customerSurname, customerBussiness, amount, idCustomer) { }
+
     }
 }

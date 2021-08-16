@@ -31,6 +31,8 @@ namespace Account_Control {
             this.btnViewItems = new FontAwesome.Sharp.IconButton();
             this.btnNewItem = new FontAwesome.Sharp.IconButton();
             this.dgvItems = new System.Windows.Forms.DataGridView();
+            this.btnDeleteItem = new FontAwesome.Sharp.IconButton();
+            this.btnUpdateItem = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgvItems)).BeginInit();
             this.SuspendLayout();
             // 
@@ -42,9 +44,9 @@ namespace Account_Control {
             this.btnViewItems.IconChar = FontAwesome.Sharp.IconChar.ChevronCircleRight;
             this.btnViewItems.IconColor = System.Drawing.Color.LimeGreen;
             this.btnViewItems.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnViewItems.Location = new System.Drawing.Point(192, 344);
+            this.btnViewItems.Location = new System.Drawing.Point(225, 277);
             this.btnViewItems.Name = "btnViewItems";
-            this.btnViewItems.Size = new System.Drawing.Size(185, 68);
+            this.btnViewItems.Size = new System.Drawing.Size(192, 56);
             this.btnViewItems.TabIndex = 7;
             this.btnViewItems.Text = "Ver Items";
             this.btnViewItems.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -59,9 +61,9 @@ namespace Account_Control {
             this.btnNewItem.IconChar = FontAwesome.Sharp.IconChar.ChevronCircleRight;
             this.btnNewItem.IconColor = System.Drawing.Color.LimeGreen;
             this.btnNewItem.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnNewItem.Location = new System.Drawing.Point(3, 343);
+            this.btnNewItem.Location = new System.Drawing.Point(12, 343);
             this.btnNewItem.Name = "btnNewItem";
-            this.btnNewItem.Size = new System.Drawing.Size(185, 68);
+            this.btnNewItem.Size = new System.Drawing.Size(194, 68);
             this.btnNewItem.TabIndex = 6;
             this.btnNewItem.Text = "Nuevo Item";
             this.btnNewItem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -99,8 +101,42 @@ namespace Account_Control {
             this.dgvItems.Location = new System.Drawing.Point(3, 12);
             this.dgvItems.Name = "dgvItems";
             this.dgvItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvItems.Size = new System.Drawing.Size(635, 310);
+            this.dgvItems.Size = new System.Drawing.Size(635, 259);
             this.dgvItems.TabIndex = 8;
+            // 
+            // btnDeleteItem
+            // 
+            this.btnDeleteItem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDeleteItem.BackColor = System.Drawing.Color.Black;
+            this.btnDeleteItem.Font = new System.Drawing.Font("Javanese Text", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeleteItem.IconChar = FontAwesome.Sharp.IconChar.ChevronCircleRight;
+            this.btnDeleteItem.IconColor = System.Drawing.Color.LimeGreen;
+            this.btnDeleteItem.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnDeleteItem.Location = new System.Drawing.Point(434, 343);
+            this.btnDeleteItem.Name = "btnDeleteItem";
+            this.btnDeleteItem.Size = new System.Drawing.Size(194, 68);
+            this.btnDeleteItem.TabIndex = 9;
+            this.btnDeleteItem.Text = "Borrar Item";
+            this.btnDeleteItem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnDeleteItem.UseVisualStyleBackColor = false;
+            this.btnDeleteItem.Click += new System.EventHandler(this.btnDeleteItem_Click);
+            // 
+            // btnUpdateItem
+            // 
+            this.btnUpdateItem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnUpdateItem.BackColor = System.Drawing.Color.Black;
+            this.btnUpdateItem.Font = new System.Drawing.Font("Javanese Text", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUpdateItem.IconChar = FontAwesome.Sharp.IconChar.ChevronCircleRight;
+            this.btnUpdateItem.IconColor = System.Drawing.Color.LimeGreen;
+            this.btnUpdateItem.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnUpdateItem.Location = new System.Drawing.Point(225, 343);
+            this.btnUpdateItem.Name = "btnUpdateItem";
+            this.btnUpdateItem.Size = new System.Drawing.Size(192, 68);
+            this.btnUpdateItem.TabIndex = 10;
+            this.btnUpdateItem.Text = "Modificar Item";
+            this.btnUpdateItem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnUpdateItem.UseVisualStyleBackColor = false;
+            this.btnUpdateItem.Click += new System.EventHandler(this.btnUpdateItem_Click);
             // 
             // frmAccountManager
             // 
@@ -108,6 +144,8 @@ namespace Account_Control {
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(640, 423);
+            this.Controls.Add(this.btnUpdateItem);
+            this.Controls.Add(this.btnDeleteItem);
             this.Controls.Add(this.dgvItems);
             this.Controls.Add(this.btnViewItems);
             this.Controls.Add(this.btnNewItem);
@@ -130,5 +168,7 @@ namespace Account_Control {
         private FontAwesome.Sharp.IconButton btnViewItems;
         private FontAwesome.Sharp.IconButton btnNewItem;
         private System.Windows.Forms.DataGridView dgvItems;
+        private FontAwesome.Sharp.IconButton btnDeleteItem;
+        private FontAwesome.Sharp.IconButton btnUpdateItem;
     }
 }

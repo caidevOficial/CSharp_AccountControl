@@ -38,13 +38,18 @@ namespace Models {
         Customer,
         WorkItem,
         Payment,
+        Supplier,
         Ticket
     }
 
     public enum FormType {
         Customer,
+        Create,
+        Delete,
+        Payment,
+        Supplier,
         Ticket,
-        Payment
+        Update
     }
 
     #endregion

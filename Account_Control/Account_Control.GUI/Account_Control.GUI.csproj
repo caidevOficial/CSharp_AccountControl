@@ -67,17 +67,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account_Control.GUI.Suppliers\frmAddSupplier.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Account_Control.GUI.Suppliers\frmAddSupplier.Designer.cs">
+      <DependentUpon>frmAddSupplier.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmAccountControl.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmAccountControl.Designer.cs">
       <DependentUpon>frmAccountControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Account_Control.GUI.Customers\frmAddCustomer.cs">
+    <Compile Include="Account_Control.GUI.Customers\frmAddEntity.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Account_Control.GUI.Customers\frmAddCustomer.Designer.cs">
-      <DependentUpon>frmAddCustomer.cs</DependentUpon>
+    <Compile Include="Account_Control.GUI.Customers\frmAddEntity.Designer.cs">
+      <DependentUpon>frmAddEntity.cs</DependentUpon>
     </Compile>
     <Compile Include="Account_Control.GUI.Payments\frmAddPayment.cs">
       <SubType>Form</SubType>
@@ -99,11 +105,14 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Account_Control.GUI.Suppliers\frmAddSupplier.resx">
+      <DependentUpon>frmAddSupplier.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAccountControl.resx">
       <DependentUpon>frmAccountControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Account_Control.GUI.Customers\frmAddCustomer.resx">
-      <DependentUpon>frmAddCustomer.cs</DependentUpon>
+    <EmbeddedResource Include="Account_Control.GUI.Customers\frmAddEntity.resx">
+      <DependentUpon>frmAddEntity.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Account_Control.GUI.Payments\frmAddPayment.resx">
       <DependentUpon>frmAddPayment.cs</DependentUpon>

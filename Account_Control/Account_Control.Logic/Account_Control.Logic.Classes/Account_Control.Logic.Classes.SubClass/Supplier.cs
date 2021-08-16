@@ -23,10 +23,9 @@
  */
 
 using System;
-using System.Text;
 
 namespace Models {
-    public sealed class Customer : Person {
+    public sealed class Supplier : Person {
 
         #region Attributes
 
@@ -35,52 +34,22 @@ namespace Models {
         private string bussinessName;
         private string bussinessAddress;
         private string city;
-        private BussinessType bussinessType;
         private int idVendor;
 
         #endregion
 
         #region Builders
 
-        public Customer() {
+        public Supplier() : base() { }
 
-        }
-
-        public Customer(string name, string surname)
-            : this(0, name, surname) { }
-
-        public Customer(short id, string name, string surname)
-            : base(id, name, surname) { }
-
-        public Customer(short id, string name, string surname, string phone)
-            : this(id, name, surname) {
+        public Supplier(short id, string name, string surname, string phone, string cuil, string bussinessName, string bussinessAddress, string city, int idVendor)
+            : base(id, name, surname) {
             this.Phone = phone;
-        }
-
-        public Customer(short id, string name, string surname, string phone, string cuil)
-            : this(id, name, surname, phone) {
             this.Cuil = cuil;
-        }
-
-        public Customer(short id, string name, string surname, string phone, string cuil, int idVendor)
-            : this(id, name, surname, phone, cuil) {
-            this.idVendor = idVendor;
-        }
-
-        public Customer(short id, string name, string surname, string phone, string cuil, string bussinessName, BussinessType bussinessType, int idVendor)
-            : this(id, name, surname, phone, cuil, idVendor) {
             this.BussinessName = bussinessName;
-            this.BussinessType = bussinessType;
-        }
-
-        public Customer(short id, string name, string surname, string phone, string cuil, string bussinessName, BussinessType bussinessType, string bussinessAddress, int idVendor)
-            : this(id, name, surname, phone, cuil, bussinessName, bussinessType, idVendor) {
             this.BussinessAddress = bussinessAddress;
-        }
-
-        public Customer(short id, string name, string surname, string phone, string cuil, string bussinessName, BussinessType bussinessType, string bussinessAddress, string city, int idVendor)
-            : this(id, name, surname, phone, cuil, bussinessName, bussinessType, bussinessAddress, idVendor) {
             this.City = city;
+            this.IdVendor = idVendor;
         }
 
         #endregion
@@ -124,18 +93,6 @@ namespace Models {
         }
 
         /// <summary>
-        /// Gets/Sets the BussinessType of the customer.
-        /// </summary>
-        public BussinessType BussinessType {
-            get => this.bussinessType;
-            set {
-                if (value.GetType() == typeof(BussinessType)) {
-                    this.bussinessType = value;
-                }
-            }
-        }
-
-        /// <summary>
         /// Gets/Sets the BussinessAddress of the customer.
         /// </summary>
         public string BussinessAddress {
@@ -169,37 +126,6 @@ namespace Models {
                     this.idVendor = value;
                 }
             }
-        }
-
-        #endregion
-
-        #region Operators
-
-        public static bool operator ==(Customer c1, Customer c2) {
-            if (!(c1 is null) && !(c2 is null)) {
-                return c1.ID == c2.ID;
-            }
-
-            return false;
-        }
-
-        public static bool operator !=(Customer c1, Customer c2) {
-            return !(c1 == c2);
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Gets a string with info of the customer.
-        /// </summary>
-        /// <returns>A string with info of the customer.</returns>
-        public override string ToString() {
-
-            StringBuilder data = new StringBuilder();
-            data.Append($"{this.ID} {this.Name} {this.BussinessName}.");
-            return data.ToString();
         }
 
         #endregion
